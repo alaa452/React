@@ -1,18 +1,30 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import axios from 'axios'
-import React from 'react'
-import useCategories from '../../hook/useCategories';
+import { Box, CircularProgress, Typography } from "@mui/material";
+import useCategories from "../../hook/useCategories";
 
 function Categories() {
-    const {data,isError,isLoading,error} = useCategories();
-    
-    if(isLoading) return <CircularProgress />
-    if(isError) return <Typography color='red'>{error}</Typography>
+  const { data, isError, isLoading, error } = useCategories();
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
+  if (isError) {
+    return (
+      <Typography color="error">
+        {error?.message || "Something went wrong"}
+      </Typography>
+    );
+  }
+
   return (
     <div>
-        {data.response.data.map((category)=><Box> <Typography>{category.name}</Typography></Box>)}
+      {data.response.data.map((category) => (
+        <Box key={category.id}>
+          <Typography>{category.name}</Typography>
+        </Box>
+      ))}
     </div>
-  )
+  );
 }
 
-export default Categories
+export default Categories;
