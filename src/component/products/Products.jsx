@@ -3,15 +3,16 @@ import React from 'react'
 import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from '@mui/material';
 import useProducts from '../../hook/useProducts';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Products() {
-
+    const {t} = useTranslation();
     const { data, isLoading, isError, error } = useProducts();
     if (isLoading) return <CircularProgress />
 
     return (
         <Box className="products" component="section">
-            <Typography component="h1" variant='h2'> Products </Typography>
+            <Typography component="h1" variant='h2'> {t("products")} </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }}>
                 {data.response.data.map((product) => {
                     return <Grid size={{ xs: 6, md: 4 }} key={product.id}>
