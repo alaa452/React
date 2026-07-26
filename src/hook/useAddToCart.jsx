@@ -7,7 +7,7 @@ function useAddToCart() {
     return useMutation({
         mutationFn: async(values)=>{
             return await authAxiosInstance.post('/Carts',{
-               ذ ProductId: values.productId,
+                ProductId: values.productId,
                 Count: values.count
             });
         },onSuccess:()=>{
