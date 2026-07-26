@@ -1,16 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
-import axiosInstance from '../api/axiosInstance';
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import axiosInstance from "../api/axiosInstance";
 
 function useCategories() {
   const { i18n } = useTranslation();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const getCategories = async () => {
-    const response = await axiosInstance.get('/Categories', {
+    const response = await axiosInstance.get("/Categories", {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Accept-Language': i18n.language,
+        "Accept-Language": i18n.language,
       },
     });
 
@@ -18,7 +18,7 @@ function useCategories() {
   };
 
   return useQuery({
-    queryKey: ['categories', i18n.language],
+    queryKey: ["categories", i18n.language],
     queryFn: getCategories,
     staleTime: 1000 * 60 * 5,
   });

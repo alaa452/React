@@ -27,7 +27,6 @@ export default function Navbar() {
     <nav>
       <Link to="/"> {t("Home")} </Link>
       <Link to="/products"> {t("Products")} </Link>
-
       {token ?
         <>
           <Link to="/cart"> {t("Cart")} ({cartCount})</Link>

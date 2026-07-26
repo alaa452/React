@@ -1,8 +1,8 @@
 import React from "react";
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
-import detector from 'i18next-browser-languagedetector';
+import detector from "i18next-browser-languagedetector";
 
 i18n
   .use(detector)
@@ -14,28 +14,28 @@ i18n
     resources: {
       en: {
         translation: {
-          "Home": "Home",
-          "products": "products",
-          "Cart": "Cart",
-          "Login": "Login",
-          "Register": "Register",
-          "Logout": "Logout",
-          "Category": "Category",
-        }
+          Home: "Home",
+          products: "products",
+          Cart: "Cart",
+          Login: "Login",
+          Register: "Register",
+          Logout: "Logout",
+          Category: "Category",
+        },
       },
       ar: {
         translation: {
-          "Home": "الرئيسية",
-          "products": "المنتجات",
-          "Cart": "السلة",
-          "Login": "تسجيل الدخول",
-          "Register": "التسجيل",
-          "Logout": "تسجيل الخروج",
-          "Category": "الفئة",
-        }
-      }
+          Home: "الرئيسية",
+          products: "المنتجات",
+          Cart: "السلة",
+          Login: "تسجيل الدخول",
+          Register: "التسجيل",
+          Logout: "تسجيل الخروج",
+          Category: "الفئة",
+        },
+      },
     },
     fallbackLng: "en",
   });
 
-  export default i18n;
+export default i18n;

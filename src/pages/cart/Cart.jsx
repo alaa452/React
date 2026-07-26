@@ -11,10 +11,12 @@ import useRemoveFromCart from '../../hook/useRemoveFromCart';
 import useUpdateCartItem from '../../hook/useUpdateCartItem';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export default function Cart() {
 
+  const navigate = useNavigate();
   const {data,isLoading,isError,error} = useCart();
   const {mutate:removeFromCart,isPending} = useRemoveFromCart();
   const {mutate:updateCartItem,isPending:isUpdatePending} = useUpdateCartItem();
@@ -67,6 +69,11 @@ export default function Cart() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Box>
+        <Button onClick={() => navigate('/checkout')}>Process To Checkout</Button>
+        <Button onClick={() => navigate('/')}>Continue Shopping</Button>
+      </Box>
     </Box>
 
   )
