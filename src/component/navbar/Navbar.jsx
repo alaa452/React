@@ -33,6 +33,8 @@ export default function Navbar() {
           <Link to="/login" component="button" onClick={handleLogout}>
             {t("Logout")}
           </Link>
+          <Link to="/Profile"> {t("Profile")} </Link>
+
         </>:
         <>
           <Link to="/login"> {t("Login")} </Link>

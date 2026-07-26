@@ -21,6 +21,8 @@ i18n
           Register: "Register",
           Logout: "Logout",
           Category: "Category",
+          Profile: "Profile",
+
         },
       },
       ar: {
@@ -32,6 +34,7 @@ i18n
           Register: "التسجيل",
           Logout: "تسجيل الخروج",
           Category: "الفئة",
+          Profile: "الملف الشخصي",
         },
       },
     },
