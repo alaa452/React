@@ -12,7 +12,7 @@ export default function Products() {
 
     return (
         <Box className="products" component="section">
-            <Typography component="h1" variant='h2'> {t("products")} </Typography>
+            <Typography color="primary" component="h1" variant='h2'> {t("products")} </Typography>
             <Grid container spacing={{ xs: 2, md: 3 }}>
                 {data.response.data.map((product) => {
                     return <Grid size={{ xs: 6, md: 4 }} key={product.id}>

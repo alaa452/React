@@ -5,11 +5,16 @@ import { RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './i18next';
 import { useTranslation } from 'react-i18next';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
+import { CssBaseline } from '@mui/material';
+import useThemeStore from './store/useThemeStore';
+import getTheme from './theme';
 
 export default function App() {
 
   const {i18n} = useTranslation();
-
+  const mode = useThemeStore((state) => state.theme);
   useEffect(() => {
     const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.dir = dir;
@@ -19,7 +24,10 @@ export default function App() {
   return (
     <>
     <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={getTheme(mode)}>
+      <CssBaseline />
     <RouterProvider router={router} />
+    </ThemeProvider>
     </QueryClientProvider>
     </>
   )

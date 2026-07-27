@@ -6,6 +6,7 @@ import useCart from "../../hook/useCart";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18next";
 import { Button } from "@mui/material";
+import useThemeStore from "../../store/useThemeStore";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function Navbar() {
     logout();
     navigate("/login");
   }
+
+  const {theme, toggleTheme} = useThemeStore();
   return (
     <nav>
       <Link to="/"> {t("Home")} </Link>
@@ -43,6 +46,9 @@ export default function Navbar() {
       }
       <Button onClick={changeLanguage}>
         {i18n.language === "ar" ? "EN" : "AR"}
+      </Button>
+      <Button onClick={toggleTheme}>
+        {theme === "light" ? "Dark" : "Light"}
       </Button>
     </nav>
   );
