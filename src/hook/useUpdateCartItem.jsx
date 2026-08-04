@@ -12,7 +12,7 @@ function useUpdateCartItem() {
             count
         })
     },onSuccess:()=>{
-        queryClient.invalidateQueries({queryKey: ['cart',i18n.language]});
+        queryClient.invalidateQueries({queryKey: ['cart',i18n.language]});//refetch the cart data after updating the item count
     }
   })
 }

@@ -12,7 +12,7 @@ function useAddToCart() {
                 Count: values.count
             });
         },onSuccess:()=>{
-            queryClient.invalidateQueries({queryKey: ['cart',i18n.language]});
+            queryClient.invalidateQueries({queryKey: ['cart',i18n.language]});// Invalidate the cache for the 'cart' query with the current language, prompting a refetch of the cart data to reflect the updated state after adding an item to the cart.
         }
     });
 }

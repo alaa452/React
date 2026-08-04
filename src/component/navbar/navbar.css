@@ -1,0 +1,31 @@
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #434655;
+  font-weight: 500;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background-color: #004AC6;
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+
+.nav-link.active {
+  color: #004AC6 !important;
+  font-weight: 600 !important;
+}
+
+
+.nav-link.active::after {
+  transform: scaleX(1);
+}

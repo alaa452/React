@@ -4,18 +4,18 @@ const getTheme = (mode) => {
   return createTheme({
     spacing: 4,
     palette: {
-      mode: mode,
+      mode: mode,//Adjusting contrast rules and background colors
 
       primary: {
         main: "#dc004e",
       },
       secondary: {
-        main: "#dc004e",
+        main: "#1053fe",
       },
       
     },
     typography: {
-        fontFamily: "Cairo, sans-serif",
+        fontFamily: "Inter, sans-serif",
       },
   });
 };

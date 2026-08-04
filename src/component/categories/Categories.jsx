@@ -1,9 +1,10 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import useCategories from "../../hook/useCategories";
+import { useNavigate } from "react-router-dom";
 
 function Categories() {
   const { data, isError, isLoading, error } = useCategories();
-
+  const navigate = useNavigate();
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -15,15 +16,33 @@ function Categories() {
       </Typography>
     );
   }
+  const handleClick =()=>{
+    navigate(`/shop`);
+  }
 
   return (
-    <div>
+    <Box
+      sx={{ display: "flex", alignItems: "center", gap: "20px", width: "100%" }}
+    >
       {data.response.data.map((category) => (
-        <Box key={category.id}>
+        <Box
+          key={category.id}
+          sx={{
+            backgroundColor: "#434655",
+            padding: "10px 20px",
+            borderRadius: "10px",
+            mt: "32px",
+            color: "white",
+            "&:hover": { backgroundColor: "#004AC6", cursor:"pointer" },
+            
+          }}
+          onClick={handleClick}
+        >
           <Typography>{category.name}</Typography>
         </Box>
       ))}
-    </div>
+      
+    </Box>
   );
 }
 

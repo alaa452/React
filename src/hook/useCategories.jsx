@@ -4,7 +4,7 @@ import axiosInstance from "../api/axiosInstance";
 
 function useCategories() {
   const { i18n } = useTranslation();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
 
   const getCategories = async () => {
     const response = await axiosInstance.get("/Categories", {

@@ -5,7 +5,8 @@ import { useTranslation, initReactI18next } from "react-i18next";
 import detector from "i18next-browser-languagedetector";
 
 i18n
-  .use(detector)
+  //method chaninges the language based on the browser settings
+  .use(detector) 
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     // the translations
@@ -22,7 +23,6 @@ i18n
           Logout: "Logout",
           Category: "Category",
           Profile: "Profile",
-
         },
       },
       ar: {
