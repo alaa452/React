@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Box,
@@ -10,17 +10,200 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import useProducts from "../../hook/useProducts";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function Products() {
+import useProducts from "../../hook/useProducts";
+
+export default function Products({
+  showHeader = true,
+  showMoreButton = true,
+  initialLimit = 4,
+  productsPerClick = 4,
+
+  // الفلاتر القادمة من Shop
+  selectedCategory = null,
+  minPrice = "",
+  maxPrice = "",
+  sortBy = "",
+  order = "asc",
+}) {
   const { t } = useTranslation();
+
   const { data, isLoading, isError, error } = useProducts();
-  const navgiate = useNavigate()
-  if (isLoading) return <CircularProgress />;
-  const handleClick = ()=>{
-    navgiate("/shop")
+
+  // عدد المنتجات الظاهرة حاليًا
+  const [visibleProductsCount, setVisibleProductsCount] =
+    useState(initialLimit);
+
+  // عند تغيير أي فلتر نعيد عدد المنتجات إلى العدد الأول
+  useEffect(() => {
+    setVisibleProductsCount(initialLimit);
+  }, [
+    selectedCategory,
+    minPrice,
+    maxPrice,
+    sortBy,
+    order,
+    initialLimit,
+  ]);
+
+  // جميع المنتجات القادمة من API
+  const products = data?.response?.data ?? [];
+
+  // فلترة وترتيب المنتجات
+  const filteredProducts = useMemo(() => {
+    const minimumPrice =
+      minPrice === "" ? null : Number(minPrice);
+
+    const maximumPrice =
+      maxPrice === "" ? null : Number(maxPrice);
+
+    const result = products.filter((product) => {
+      /*
+        نحاول الحصول على رقم التصنيف بأكثر من شكل،
+        حسب شكل البيانات القادمة من الـ API.
+      */
+      const productCategoryId =
+        product.categoryId ??
+        product.categoryID ??
+        product.category?.id ??
+        product.category?.categoryId ??
+        product.category?.categoryID;
+
+      const productPrice = Number(product.price);
+
+      // فلترة التصنيف
+      const matchesCategory =
+        selectedCategory === null ||
+        String(productCategoryId) ===
+          String(selectedCategory);
+
+      // فلترة أقل سعر
+      const matchesMinPrice =
+        minimumPrice === null ||
+        productPrice >= minimumPrice;
+
+      // فلترة أعلى سعر
+      const matchesMaxPrice =
+        maximumPrice === null ||
+        productPrice <= maximumPrice;
+
+      return (
+        matchesCategory &&
+        matchesMinPrice &&
+        matchesMaxPrice
+      );
+    });
+
+    // ننسخ المصفوفة قبل ترتيبها
+    return [...result].sort((firstProduct, secondProduct) => {
+      // إذا لم يتم اختيار نوع ترتيب، نحافظ على ترتيب API
+      if (!sortBy) {
+        return 0;
+      }
+
+      let comparison = 0;
+
+      // الترتيب حسب السعر
+      if (sortBy === "price") {
+        comparison =
+          Number(firstProduct.price) -
+          Number(secondProduct.price);
+      }
+
+      // الترتيب حسب الاسم
+      if (sortBy === "name") {
+        comparison = String(
+          firstProduct.name ?? "",
+        ).localeCompare(
+          String(secondProduct.name ?? ""),
+          undefined,
+          {
+            sensitivity: "base",
+          },
+        );
+      }
+
+      return order === "desc" ? -comparison : comparison;
+    });
+  }, [
+    products,
+    selectedCategory,
+    minPrice,
+    maxPrice,
+    sortBy,
+    order,
+  ]);
+
+  // المنتجات الظاهرة حاليًا بعد الفلترة
+  const displayedProducts = filteredProducts.slice(
+    0,
+    visibleProductsCount,
+  );
+
+  // هل يوجد منتجات إضافية؟
+  const hasMoreProducts =
+    visibleProductsCount < filteredProducts.length;
+
+  // عرض منتجات إضافية
+  const handleShowMore = () => {
+    setVisibleProductsCount((previousCount) =>
+      Math.min(
+        previousCount + productsPerClick,
+        filteredProducts.length,
+      ),
+    );
+  };
+
+  // حالة التحميل
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          minHeight: "250px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <CircularProgress
+          sx={{
+            color: "#004AC6",
+          }}
+        />
+      </Box>
+    );
+  }
+
+  // حالة الخطأ
+  if (isError) {
+    return (
+      <Box
+        sx={{
+          minHeight: "220px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "12px",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        <Typography
+          color="error"
+          sx={{
+            fontSize: "16px",
+            fontWeight: 600,
+          }}
+        >
+          {error?.message || "Failed to load products"}
+        </Typography>
+      </Box>
+    );
   }
 
   return (
@@ -28,190 +211,278 @@ export default function Products() {
       className="products"
       component="section"
       sx={{
-        mt: "64px",
+        mt: showHeader ? "64px" : 0,
         display: "flex",
         flexDirection: "column",
         gap: "32px",
+        width: "100%",
       }}
     >
-      {/* عنوان القسم */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-        }}
-      >
-        <Typography
-          component="h2"
-          variant="h4"
+      {/* عنوان قسم المنتجات */}
+      {showHeader && (
+        <Box
           sx={{
-            fontWeight: 700,
-            fontSize: { xs: "26px", md: "32px" },
-            lineHeight: "40px",
-            letterSpacing: "0.64px",
-            color: "#202124",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
           }}
         >
-          {t("Products")}
-        </Typography>
-
-        <Typography
-          variant="body1"
-          sx={{
-            color: "#434655",
-            fontSize: "16px",
-          }}
-        >
-          Hand-picked excellence for your everyday life
-        </Typography>
-      </Box>
-
-      {/* المنتجات */}
-      <Grid container spacing={{ xs: 2, md: 3 }}>
-        {data?.response?.data?.map((product) => (
-          <Grid
-            key={product.id}
-            size={{
-              xs: 12,
-              sm: 6,
-              md: 4,
-              lg: 3,
+          <Typography
+            component="h2"
+            variant="h4"
+            sx={{
+              fontWeight: 700,
+              fontSize: {
+                xs: "26px",
+                md: "32px",
+              },
+              lineHeight: {
+                xs: "34px",
+                md: "40px",
+              },
+              letterSpacing: "0.64px",
+              color: "#202124",
             }}
           >
-            <Card
-              component={Link}
-              to={`/products/${product.id}`}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                textDecoration: "none",
-                color: "inherit",
+            {t("Products")}
+          </Typography>
 
-                border: "1px solid #E1E5EE",
-                borderRadius: "16px",
-                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.06)",
-                overflow: "hidden",
+          <Typography
+            variant="body1"
+            sx={{
+              color: "#434655",
+              fontSize: "16px",
+              lineHeight: "24px",
+            }}
+          >
+            Hand-picked excellence for your everyday life
+          </Typography>
+        </Box>
+      )}
 
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+      {/* حالة عدم وجود منتجات بعد الفلترة */}
+      {filteredProducts.length === 0 ? (
+        <Box
+          sx={{
+            minHeight: "220px",
+            width: "100%",
+            px: "24px",
 
-                "&:hover": {
-                  transform: "translateY(-7px)",
-                  boxShadow: "0 14px 30px rgba(0, 74, 198, 0.14)",
-                },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
 
-                "&:hover .product-image": {
-                  transform: "scale(1.06)",
-                },
-              }}
-            >
-              {/* حاوية الصورة */}
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "240px",
-                  overflow: "hidden",
-                  backgroundColor: "#FFFFFF",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  p: 2,
+            border: "1px solid #E1E5EE",
+            borderRadius: "16px",
+            backgroundColor: "#F8FAFC",
+            textAlign: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#202124",
+              fontSize: "18px",
+              fontWeight: 700,
+            }}
+          >
+            No products found
+          </Typography>
+
+          <Typography
+            sx={{
+              color: "#434655",
+              fontSize: "14px",
+            }}
+          >
+            Try changing the selected category or price range.
+          </Typography>
+        </Box>
+      ) : (
+        <>
+          {/* شبكة المنتجات */}
+          <Grid container spacing={{ xs: 2, md: 3 }}>
+            {displayedProducts.map((product) => (
+              <Grid
+                key={product.id}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  md: 6,
+                  lg: 4,
                 }}
               >
-                <CardMedia
-                  className="product-image"
-                  component="img"
-                  image={product.image}
-                  alt={product.name}
+                <Card
+                  component={Link}
+                  to={`/products/${product.id}`}
                   sx={{
-                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
                     height: "100%",
-                    objectFit: "contain",
-                    transition: "transform 0.4s ease",
+
+                    textDecoration: "none",
+                    color: "inherit",
+
+                    border: "1px solid #E1E5EE",
+                    borderRadius: "16px",
+                    boxShadow:
+                      "0 4px 14px rgba(0, 0, 0, 0.06)",
+                    overflow: "hidden",
+
+                    transition:
+                      "transform 0.3s ease, box-shadow 0.3s ease",
+
+                    "&:hover": {
+                      transform: "translateY(-7px)",
+                      boxShadow:
+                        "0 14px 30px rgba(0, 74, 198, 0.14)",
+                    },
+
+                    "&:hover .product-image": {
+                      transform: "scale(1.04)",
+                    },
                   }}
-                />
-              </Box>
+                >
+                  {/* صورة المنتج */}
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: {
+                        xs: "220px",
+                        md: "240px",
+                      },
+                      overflow: "hidden",
+                      backgroundColor: "#FFFFFF",
 
-              {/* معلومات المنتج */}
-              <CardContent
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+
+                      p: 2,
+                    }}
+                  >
+                    <CardMedia
+                      className="product-image"
+                      component="img"
+                      image={product.image}
+                      alt={product.name}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        transition:
+                          "transform 0.4s ease",
+                      }}
+                    />
+                  </Box>
+
+                  {/* معلومات المنتج */}
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flexGrow: 1,
+                      gap: "12px",
+                      p: "20px",
+
+                      "&:last-child": {
+                        pb: "20px",
+                      },
+                    }}
+                  >
+                    <Typography
+                      component="h3"
+                      sx={{
+                        minHeight: "48px",
+                        fontSize: "17px",
+                        fontWeight: 700,
+                        lineHeight: 1.4,
+                        color: "#202124",
+
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        overflow: "hidden",
+                      }}
+                    >
+                      {product.name}
+                    </Typography>
+
+                    <Box
+                      sx={{
+                        mt: "auto",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <Typography
+                        component="span"
+                        sx={{
+                          fontSize: "22px",
+                          fontWeight: 700,
+                          color: "#004AC6",
+                        }}
+                      >
+                        ${product.price}
+                      </Typography>
+
+                      <Typography
+                        component="span"
+                        sx={{
+                          fontSize: "14px",
+                          fontWeight: 600,
+                          color: "#004AC6",
+                        }}
+                      >
+                        View Details
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* زر إظهار المزيد */}
+          {showMoreButton && hasMoreProducts && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                type="button"
+                variant="contained"
+                onClick={handleShowMore}
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  flexGrow: 1,
-                  gap: "12px",
-                  p: "20px",
+                  minWidth: "140px",
+                  height: "44px",
+                  px: "24px",
 
-                  "&:last-child": {
-                    pb: "20px",
+                  backgroundColor: "#004AC6",
+                  borderRadius: "8px",
+                  textTransform: "none",
+
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  boxShadow: "none",
+
+                  "&:hover": {
+                    backgroundColor: "#001A49",
+                    boxShadow: "none",
                   },
                 }}
               >
-                <Typography
-                  component="h3"
-                  sx={{
-                    fontSize: "17px",
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    color: "#202124",
-
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    overflow: "hidden",
-                  }}
-                >
-                  {product.name}
-                </Typography>
-
-                <Box
-                  sx={{
-                    mt: "auto",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: "12px",
-                  }}
-                >
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontSize: "22px",
-                      fontWeight: 700,
-                      color: "#004AC6",
-                    }}
-                  >
-                    ${product.price}
-                  </Typography>
-
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: "#004AC6",
-                    }}
-                  >
-                    View Details
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          sx={{
-            backgroundColor: "#004AC6",
-            "&:hover": { backgroundColor: "#001a49", color: "#fff" },
-          }}
-        >
-          Show More
-        </Button>
-      </Box>
+                Show More
+              </Button>
+            </Box>
+          )}
+        </>
+      )}
     </Box>
   );
 }
