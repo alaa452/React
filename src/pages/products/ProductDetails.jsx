@@ -181,7 +181,7 @@ one image will be displayed.
           </Typography>
         </Breadcrumbs>
 
-        {/* upper part*/}
+
         <Grid container spacing={{ xs: 4, md: 5 }}>
           {/* the pictures */}
           <Grid size={{ xs: 12, md: 7 }}>
@@ -195,7 +195,7 @@ one image will be displayed.
                 },
               }}
             >
-              {/* small pictures*/}
+
               {productImages.length > 0 && (
                 <Box
                   sx={{
@@ -246,7 +246,6 @@ one image will be displayed.
                 </Box>
               )}
 
-              {/*Big picture */}
               <Box
                 sx={{
                   width: "100%",
@@ -287,7 +286,7 @@ one image will be displayed.
             </Box>
           </Grid>
 
-          {/* Product Information*/}
+
           <Grid size={{ xs: 12, md: 5 }}>
             <Box
               sx={{
@@ -296,7 +295,7 @@ one image will be displayed.
                 gap: "18px",
               }}
             >
-              {/*  Classification*/}
+
               {product.category?.name && (
                 <Box>
                   <Typography
@@ -317,7 +316,6 @@ one image will be displayed.
                 </Box>
               )}
 
-              {/* Product Name*/}
               <Typography
                 component="h1"
                 sx={{
@@ -333,7 +331,6 @@ one image will be displayed.
                 {product.name}
               </Typography>
 
-              {/* Evaluation */}
               <Box
                 sx={{
                   display: "flex",
@@ -361,7 +358,7 @@ one image will be displayed.
                 </Typography>
               </Box>
 
-              {/* price */}
+
               <Typography
                 sx={{
                   color: "#004AC6",
@@ -372,7 +369,6 @@ one image will be displayed.
                 ${product.price}
               </Typography>
 
-              {/* description */}
               <Typography
                 sx={{
                   color: "#5F6470",
@@ -385,7 +381,6 @@ one image will be displayed.
 
               <Divider />
 
-              {/* Quantity */}
               <Box
                 sx={{
                   display: "flex",
@@ -449,7 +444,6 @@ one image will be displayed.
                 </Box>
               </Box>
 
-              {/* Cart and Favorites button*/}
               <Box
                 sx={{
                   display: "flex",
@@ -626,7 +620,6 @@ one image will be displayed.
           </Grid>
         </Grid>
 
-        {/* Tabs */}
         <Box
           sx={{
             mt: {
@@ -663,7 +656,6 @@ one image will be displayed.
             <Tab label={`Reviews (${reviews.length})`} />
           </Tabs>
 
-          {/* Description */}
           {selectedTab === 0 && (
             <Box
               sx={{
