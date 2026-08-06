@@ -22,7 +22,7 @@ export default function Products({
   initialLimit = 4,
   productsPerClick = 4,
 
-  // الفلاتر القادمة من Shop
+  // Filters coming from Shop
   selectedCategory = null,
   minPrice = "",
   maxPrice = "",
@@ -33,37 +33,29 @@ export default function Products({
 
   const { data, isLoading, isError, error } = useProducts();
 
-  // عدد المنتجات الظاهرة حاليًا
+  // Number of products currently displayed
   const [visibleProductsCount, setVisibleProductsCount] =
     useState(initialLimit);
 
-  // عند تغيير أي فلتر نعيد عدد المنتجات إلى العدد الأول
+  // When changing any filter, we reset the number of products to the first count.
   useEffect(() => {
     setVisibleProductsCount(initialLimit);
-  }, [
-    selectedCategory,
-    minPrice,
-    maxPrice,
-    sortBy,
-    order,
-    initialLimit,
-  ]);
+  }, [selectedCategory, minPrice, maxPrice, sortBy, order, initialLimit]);
 
-  // جميع المنتجات القادمة من API
+  // All products coming from API
   const products = data?.response?.data ?? [];
 
-  // فلترة وترتيب المنتجات
+  // Filter and sort products
   const filteredProducts = useMemo(() => {
-    const minimumPrice =
-      minPrice === "" ? null : Number(minPrice);
+    const minimumPrice = minPrice === "" ? null : Number(minPrice);
 
-    const maximumPrice =
-      maxPrice === "" ? null : Number(maxPrice);
+    const maximumPrice = maxPrice === "" ? null : Number(maxPrice);
 
     const result = products.filter((product) => {
       /*
-        نحاول الحصول على رقم التصنيف بأكثر من شكل،
-        حسب شكل البيانات القادمة من الـ API.
+       We attempt to obtain the classification number in more than one format,
+
+depending on the format of the data coming from the API.
       */
       const productCategoryId =
         product.categoryId ??
@@ -74,50 +66,39 @@ export default function Products({
 
       const productPrice = Number(product.price);
 
-      // فلترة التصنيف
+      // Filtering the classification
       const matchesCategory =
         selectedCategory === null ||
-        String(productCategoryId) ===
-          String(selectedCategory);
+        String(productCategoryId) === String(selectedCategory);
 
       // فلترة أقل سعر
       const matchesMinPrice =
-        minimumPrice === null ||
-        productPrice >= minimumPrice;
+        minimumPrice === null || productPrice >= minimumPrice;
 
-      // فلترة أعلى سعر
+      // Highest price filter
       const matchesMaxPrice =
-        maximumPrice === null ||
-        productPrice <= maximumPrice;
+        maximumPrice === null || productPrice <= maximumPrice;
 
-      return (
-        matchesCategory &&
-        matchesMinPrice &&
-        matchesMaxPrice
-      );
+      return matchesCategory && matchesMinPrice && matchesMaxPrice;
     });
 
-    // ننسخ المصفوفة قبل ترتيبها
+    //We copy the array before sorting it.
     return [...result].sort((firstProduct, secondProduct) => {
-      // إذا لم يتم اختيار نوع ترتيب، نحافظ على ترتيب API
+      // If no sort type is selected, we retain the API sort.
       if (!sortBy) {
         return 0;
       }
 
       let comparison = 0;
 
-      // الترتيب حسب السعر
+      //Sort by name
       if (sortBy === "price") {
-        comparison =
-          Number(firstProduct.price) -
-          Number(secondProduct.price);
+        comparison = Number(firstProduct.price) - Number(secondProduct.price);
       }
 
-      // الترتيب حسب الاسم
+      //
       if (sortBy === "name") {
-        comparison = String(
-          firstProduct.name ?? "",
-        ).localeCompare(
+        comparison = String(firstProduct.name ?? "").localeCompare(
           String(secondProduct.name ?? ""),
           undefined,
           {
@@ -128,36 +109,22 @@ export default function Products({
 
       return order === "desc" ? -comparison : comparison;
     });
-  }, [
-    products,
-    selectedCategory,
-    minPrice,
-    maxPrice,
-    sortBy,
-    order,
-  ]);
+  }, [products, selectedCategory, minPrice, maxPrice, sortBy, order]);
 
-  // المنتجات الظاهرة حاليًا بعد الفلترة
-  const displayedProducts = filteredProducts.slice(
-    0,
-    visibleProductsCount,
-  );
+  //Products currently displayed after filtering
+  const displayedProducts = filteredProducts.slice(0, visibleProductsCount);
 
-  // هل يوجد منتجات إضافية؟
-  const hasMoreProducts =
-    visibleProductsCount < filteredProducts.length;
+  // Are there any additional products?
+  const hasMoreProducts = visibleProductsCount < filteredProducts.length;
 
-  // عرض منتجات إضافية
+  //View additional products
   const handleShowMore = () => {
     setVisibleProductsCount((previousCount) =>
-      Math.min(
-        previousCount + productsPerClick,
-        filteredProducts.length,
-      ),
+      Math.min(previousCount + productsPerClick, filteredProducts.length),
     );
   };
 
-  // حالة التحميل
+  // Loading status
   if (isLoading) {
     return (
       <Box
@@ -178,7 +145,7 @@ export default function Products({
     );
   }
 
-  // حالة الخطأ
+  // Error status
   if (isError) {
     return (
       <Box
@@ -218,7 +185,7 @@ export default function Products({
         width: "100%",
       }}
     >
-      {/* عنوان قسم المنتجات */}
+      {/* Product Section Title*/}
       {showHeader && (
         <Box
           sx={{
@@ -260,7 +227,7 @@ export default function Products({
         </Box>
       )}
 
-      {/* حالة عدم وجود منتجات بعد الفلترة */}
+      {/*No products remain after filtration */}
       {filteredProducts.length === 0 ? (
         <Box
           sx={{
@@ -301,7 +268,7 @@ export default function Products({
         </Box>
       ) : (
         <>
-          {/* شبكة المنتجات */}
+          {/* Product Network*/}
           <Grid container spacing={{ xs: 2, md: 3 }}>
             {displayedProducts.map((product) => (
               <Grid
@@ -326,17 +293,14 @@ export default function Products({
 
                     border: "1px solid #E1E5EE",
                     borderRadius: "16px",
-                    boxShadow:
-                      "0 4px 14px rgba(0, 0, 0, 0.06)",
+                    boxShadow: "0 4px 14px rgba(0, 0, 0, 0.06)",
                     overflow: "hidden",
 
-                    transition:
-                      "transform 0.3s ease, box-shadow 0.3s ease",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
 
                     "&:hover": {
                       transform: "translateY(-7px)",
-                      boxShadow:
-                        "0 14px 30px rgba(0, 74, 198, 0.14)",
+                      boxShadow: "0 14px 30px rgba(0, 74, 198, 0.14)",
                     },
 
                     "&:hover .product-image": {
@@ -344,7 +308,7 @@ export default function Products({
                     },
                   }}
                 >
-                  {/* صورة المنتج */}
+                  {/* product pitcher*/}
                   <Box
                     sx={{
                       width: "100%",
@@ -371,13 +335,12 @@ export default function Products({
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
-                        transition:
-                          "transform 0.4s ease",
+                        transition: "transform 0.4s ease",
                       }}
                     />
                   </Box>
 
-                  {/* معلومات المنتج */}
+                  {/* info products*/}
                   <CardContent
                     sx={{
                       display: "flex",
@@ -446,7 +409,7 @@ export default function Products({
             ))}
           </Grid>
 
-          {/* زر إظهار المزيد */}
+          {/* show more*/}
           {showMoreButton && hasMoreProducts && (
             <Box
               sx={{
