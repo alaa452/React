@@ -138,14 +138,15 @@ export default function Navbar() {
                 >
                   {t("Logout")}
                 </Button>
+                
 
-                <Link
+                {/* <Link
                   to="/profile"
                   style={linkStyle}
                   className={isActive("/profile")}
                 >
                   {t("Profile")}
-                </Link>
+                </Link> */}
               </>
             ) : (
               <>

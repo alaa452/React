@@ -94,7 +94,6 @@ export default function Login() {
             boxShadow: "0 12px 35px rgba(0, 0, 0, 0.08)",
           }}
         >
-          {/* عنوان الصفحة */}
           <Box
             sx={{
               mb: "32px",
@@ -128,7 +127,6 @@ export default function Login() {
             </Typography>
           </Box>
 
-          {/* أخطاء الخادم */}
           {serverErrors.length > 0 && (
             <Box
               sx={{
@@ -153,7 +151,6 @@ export default function Login() {
             </Box>
           )}
 
-          {/* نموذج تسجيل الدخول */}
           <Box
             component="form"
             onSubmit={handleSubmit(loginForm)}
@@ -239,7 +236,6 @@ export default function Login() {
               </Link>
             </Box>
 
-            {/* زر تسجيل الدخول */}
             <Button
               type="submit"
               variant="contained"
@@ -279,7 +275,6 @@ export default function Login() {
             </Button>
           </Box>
 
-          {/* رابط التسجيل */}
           <Typography
             sx={{
               mt: "28px",
