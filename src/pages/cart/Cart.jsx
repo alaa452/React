@@ -20,11 +20,13 @@ import { useTranslation } from "react-i18next";
 import useCart from "../../hook/useCart";
 import useRemoveFromCart from "../../hook/useRemoveFromCart";
 import useUpdateCartItem from "../../hook/useUpdateCartItem";
+import { red } from "@mui/material/colors";
 
 export default function Cart() {
   const navigate = useNavigate();
 
   const { t } = useTranslation();
+
 
   const { data, isLoading, isError, error } = useCart();
 
@@ -148,7 +150,7 @@ export default function Cart() {
               fontSize: "15px",
             }}
           >
-            {t("Review your products before checkout")}
+            {t("Review your products before checkout")}\\get the translate from i18next file
           </Typography>
         </Box>
 
@@ -205,7 +207,6 @@ export default function Cart() {
 
             <Typography
               sx={{
-                maxWidth: "420px",
                 color: "text.secondary",
                 fontSize: "15px",
                 lineHeight: "23px",
@@ -218,18 +219,15 @@ export default function Cart() {
               variant="contained"
               onClick={() => navigate("/shop")}
               sx={{
-                mt: "8px",
                 minWidth: "160px",
                 height: "46px",
                 borderRadius: "8px",
                 backgroundColor: "#004AC6",
                 textTransform: "none",
                 fontWeight: 600,
-                boxShadow: "none",
 
                 "&:hover": {
                   backgroundColor: "#003B9E",
-                  boxShadow: "none",
                 },
               }}
             >
@@ -261,7 +259,7 @@ export default function Cart() {
             >
               {cartItems.map((item) => (
                 <Box
-                  key={item.id ?? item.productId}
+                  key={item.productId}
                   sx={{
                     display: "flex",
 
@@ -276,9 +274,7 @@ export default function Cart() {
                     },
 
                     justifyContent: "space-between",
-
                     gap: "20px",
-
                     p: {
                       xs: "18px",
                       md: "24px",
@@ -441,7 +437,6 @@ export default function Cart() {
                       )
                     }
                     sx={{
-                      minWidth: "100px",
                       height: "40px",
                       borderRadius: "8px",
                       textTransform: "none",

@@ -4,7 +4,7 @@ import authAxiosInstance from '../api/authAxiosInstance';
 import i18n from '../i18next';
 
 function useUpdateCartItem() {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient();//cash
 
   return useMutation({
     mutationFn: async({productId, count})=>{

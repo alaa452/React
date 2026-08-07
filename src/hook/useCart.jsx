@@ -6,6 +6,7 @@ import i18n from '../i18next';
 function useCart() {
     const getItems = async() => {
         const response = await authAxiosInstance.get('/Carts');
+        console.log(response.data);
         return response.data;
     }
   return useQuery({
