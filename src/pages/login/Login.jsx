@@ -17,11 +17,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 import { loginSchems } from "../../validations/LoginSchems";
 import useAuthStore from "../../store/useAuthStore";
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const setToken = useAuthStore((state) => state.setToken);
 
@@ -33,6 +37,7 @@ export default function Login() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(loginSchems),
+
     defaultValues: {
       email: "",
       password: "",
@@ -55,7 +60,7 @@ export default function Login() {
       const message =
         error.response?.data?.message ||
         error.response?.data?.error ||
-        "Login failed. Please check your email and password.";
+        t("Login failed");
 
       setServerErrors([message]);
     }
@@ -67,10 +72,12 @@ export default function Login() {
       sx={{
         minHeight: "calc(100vh - 70px)",
         mt: "70px",
+
         py: {
           xs: "40px",
           md: "70px",
         },
+
         backgroundColor: "background.default",
 
         display: "flex",
@@ -83,17 +90,24 @@ export default function Login() {
             width: "100%",
             maxWidth: "460px",
             mx: "auto",
+
             p: {
               xs: "24px",
               sm: "40px",
             },
 
             backgroundColor: "background.paper",
-            border: "1px solid #E2E8F0",
+
+            border: "1px solid",
+            borderColor: "divider",
+
             borderRadius: "16px",
+
             boxShadow: "0 12px 35px rgba(0, 0, 0, 0.08)",
           }}
         >
+          {/* Header */}
+
           <Box
             sx={{
               mb: "32px",
@@ -104,15 +118,17 @@ export default function Login() {
               component="h1"
               sx={{
                 color: "text.primary",
+
                 fontSize: {
                   xs: "28px",
                   sm: "32px",
                 },
+
                 lineHeight: "40px",
                 fontWeight: 700,
               }}
             >
-              Welcome Back
+              {t("Welcome Back")}
             </Typography>
 
             <Typography
@@ -123,9 +139,11 @@ export default function Login() {
                 lineHeight: "22px",
               }}
             >
-              Login to continue shopping with KnowledgeShop
+              {t("Login Description")}
             </Typography>
           </Box>
+
+          {/* Server Errors */}
 
           {serverErrors.length > 0 && (
             <Box
@@ -151,6 +169,8 @@ export default function Login() {
             </Box>
           )}
 
+          {/* Form */}
+
           <Box
             component="form"
             onSubmit={handleSubmit(loginForm)}
@@ -164,7 +184,7 @@ export default function Login() {
             <TextField
               {...register("email")}
               id="email"
-              label="Email"
+              label={t("Email")}
               type="email"
               variant="outlined"
               fullWidth
@@ -189,7 +209,7 @@ export default function Login() {
             <TextField
               {...register("password")}
               id="password"
-              label="Password"
+              label={t("Password")}
               type="password"
               variant="outlined"
               fullWidth
@@ -211,7 +231,8 @@ export default function Login() {
               }}
             />
 
-            {/* نسيت كلمة المرور */}
+            {/* Forgot Password */}
+
             <Box
               sx={{
                 display: "flex",
@@ -232,9 +253,11 @@ export default function Login() {
                   },
                 }}
               >
-                Forgot Password?
+                {t("Forgot Password?")}
               </Link>
             </Box>
+
+            {/* Login Button */}
 
             <Button
               type="submit"
@@ -244,11 +267,14 @@ export default function Login() {
               sx={{
                 height: "50px",
                 borderRadius: "8px",
+
                 backgroundColor: "#004AC6",
-                color: "background.paper",
+                color: "#fff",
+
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: 600,
+
                 boxShadow: "none",
 
                 "&:hover": {
@@ -258,7 +284,7 @@ export default function Login() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#AFC4E8",
-                  color: "background.paper",
+                  color: "#fff",
                 },
               }}
             >
@@ -266,14 +292,16 @@ export default function Login() {
                 <CircularProgress
                   size={23}
                   sx={{
-                    color: "background.paper",
+                    color: "#fff",
                   }}
                 />
               ) : (
-                "Login"
+                t("Login")
               )}
             </Button>
           </Box>
+
+          {/* Register */}
 
           <Typography
             sx={{
@@ -283,7 +311,8 @@ export default function Login() {
               textAlign: "center",
             }}
           >
-            Don&apos;t have an account?{" "}
+            {t("Don't have an account?")}{" "}
+
             <Link
               component={RouterLink}
               to="/register"
@@ -297,7 +326,7 @@ export default function Login() {
                 },
               }}
             >
-              Create Account
+              {t("Create Account")}
             </Link>
           </Typography>
         </Box>

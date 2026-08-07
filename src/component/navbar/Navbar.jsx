@@ -11,12 +11,11 @@ import {
   Box,
   Button,
   Container,
-  InputAdornment,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -24,8 +23,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LanguageIcon from "@mui/icons-material/Language";
 
-import homeImage from "../../image/homeImage.png";
-import { IconButton } from "@mui/material";
 import "./navbar.css";
 
 export default function Navbar({ mode, handleTheme }) {
@@ -33,6 +30,7 @@ export default function Navbar({ mode, handleTheme }) {
   const location = useLocation();
 
   const [openMenu, setOpenMenu] = useState(false);
+
   const token = useAuthStore((state) => state.token);
   const logout = useAuthStore((state) => state.logout);
 
@@ -44,10 +42,20 @@ export default function Navbar({ mode, handleTheme }) {
 
   const handleLogout = () => {
     logout();
-
     navigate("/login");
-
     setOpenMenu(false);
+  };
+
+  const handleLanguage = () => {
+    const newLanguage =
+      i18n.language === "en" ? "ar" : "en";
+
+    i18n.changeLanguage(newLanguage);
+
+    document.documentElement.dir =
+      newLanguage === "ar" ? "rtl" : "ltr";
+
+    document.documentElement.lang = newLanguage;
   };
 
   const linkStyle = {
@@ -58,7 +66,9 @@ export default function Navbar({ mode, handleTheme }) {
   };
 
   const isActive = (path) => {
-    return location.pathname === path ? "nav-link active" : "nav-link";
+    return location.pathname === path
+      ? "nav-link active"
+      : "nav-link";
   };
 
   return (
@@ -66,11 +76,13 @@ export default function Navbar({ mode, handleTheme }) {
       component="nav"
       sx={{
         width: "100%",
-        borderBottom: "1px solid #eee",
+        borderBottom: "1px solid",
+        borderColor: "divider",
         position: "fixed",
         top: 0,
         zIndex: 1000,
         backdropFilter: "blur(20px)",
+        backgroundColor: "background.paper",
       }}
     >
       <Container maxWidth="xl">
@@ -105,28 +117,38 @@ export default function Navbar({ mode, handleTheme }) {
                 xs: "none",
                 md: "flex",
               },
-
               alignItems: "center",
               gap: "24px",
             }}
           >
-            <Link to="/" style={linkStyle} className={isActive("/")}>
+            <Box
+              component={Link}
+              to="/"
+              sx={linkStyle}
+              className={isActive("/")}
+            >
               {t("Home")}
-            </Link>
+            </Box>
 
-            <Link to="/shop" style={linkStyle} className={isActive("/shop")}>
+            <Box
+              component={Link}
+              to="/shop"
+              sx={linkStyle}
+              className={isActive("/shop")}
+            >
               {t("Shop")}
-            </Link>
+            </Box>
 
             {token ? (
               <>
-                <Link
+                <Box
+                  component={Link}
                   to="/cart"
-                  style={linkStyle}
+                  sx={linkStyle}
                   className={isActive("/cart")}
                 >
                   {t("Cart")} ({cartCount})
-                </Link>
+                </Box>
 
                 <Button
                   onClick={handleLogout}
@@ -138,37 +160,31 @@ export default function Navbar({ mode, handleTheme }) {
                 >
                   {t("Logout")}
                 </Button>
-
-                {/* <Link
-                  to="/profile"
-                  style={linkStyle}
-                  className={isActive("/profile")}
-                >
-                  {t("Profile")}
-                </Link> */}
               </>
             ) : (
               <>
-                <Link
+                <Box
+                  component={Link}
                   to="/login"
-                  style={linkStyle}
+                  sx={linkStyle}
                   className={isActive("/login")}
                 >
                   {t("Login")}
-                </Link>
+                </Box>
 
-                <Link
+                <Box
+                  component={Link}
                   to="/register"
-                  style={linkStyle}
+                  sx={linkStyle}
                   className={isActive("/register")}
                 >
                   {t("Register")}
-                </Link>
+                </Box>
               </>
             )}
           </Box>
 
-          {/* Search + Icons Desktop */}
+          {/* Desktop Icons */}
 
           <Box
             sx={{
@@ -176,20 +192,52 @@ export default function Navbar({ mode, handleTheme }) {
                 xs: "none",
                 md: "flex",
               },
-
               alignItems: "center",
-              gap: 2,
+              gap: 1,
             }}
           >
-            <Box
+            {/* Dark Mode */}
+
+            <IconButton
+              onClick={handleTheme}
               sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
+                color: "text.secondary",
+
+                "&:hover": {
+                  color: "#004AC6",
+                  backgroundColor: "transparent",
+                },
               }}
             >
+              {mode === "light" ? (
+                <DarkModeIcon />
+              ) : (
+                <LightModeIcon />
+              )}
+            </IconButton>
+
+            {/* Language */}
+
+            <IconButton
+              onClick={handleLanguage}
+              sx={{
+                color: "text.secondary",
+
+                "&:hover": {
+                  color: "#004AC6",
+                  backgroundColor: "transparent",
+                },
+              }}
+            >
+              <LanguageIcon />
+            </IconButton>
+
+            {/* Profile */}
+
+            {token && (
               <IconButton
-                onClick={handleTheme}
+                component={Link}
+                to="/profile"
                 sx={{
                   color: "text.secondary",
 
@@ -199,45 +247,25 @@ export default function Navbar({ mode, handleTheme }) {
                   },
                 }}
               >
-                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+                <AccountCircleIcon />
               </IconButton>
-              <LanguageIcon
-                sx={{
-                  color: "text.secondary",
-                  cursor: "pointer",
-                  transition: "color 0.3s ease",
-                  "&:hover": { color: "#004AC6" },
-                }}
-              />
-              <Link to="/profile">
-                <AccountCircleIcon
-                  sx={{
-                    color: "text.secondary",
-                    cursor: "pointer",
-                    transition: "color 0.3s ease",
-
-                    "&:hover": {
-                      color: "#004AC6",
-                    },
-                  }}
-                />
-              </Link>
-            </Box>
+            )}
           </Box>
 
           {/* Mobile Menu Button */}
 
-          <Button
+          <IconButton
             sx={{
               display: {
                 xs: "flex",
                 md: "none",
               },
+              color: "text.primary",
             }}
             onClick={() => setOpenMenu(!openMenu)}
           >
             {openMenu ? <CloseIcon /> : <MenuIcon />}
-          </Button>
+          </IconButton>
         </Box>
 
         {/* Mobile Menu */}
@@ -246,46 +274,64 @@ export default function Navbar({ mode, handleTheme }) {
           sx={{
             display: {
               xs: openMenu ? "flex" : "none",
-
               md: "none",
             },
+
             flexDirection: "column",
             gap: 2,
+
             position: "absolute",
             top: "70px",
             left: 0,
+
             width: "100%",
-            backgroundColor: "#fff",
+
+            backgroundColor: "background.paper",
+
             padding: 3,
+
             boxShadow: "0 10px 20px rgba(0,0,0,.1)",
+
             zIndex: 100,
           }}
         >
-          <Link to="/" style={linkStyle} onClick={() => setOpenMenu(false)}>
+          <Box
+            component={Link}
+            to="/"
+            sx={linkStyle}
+            onClick={() => setOpenMenu(false)}
+          >
             {t("Home")}
-          </Link>
+          </Box>
 
-          <Link to="/shop" style={linkStyle} onClick={() => setOpenMenu(false)}>
+          <Box
+            component={Link}
+            to="/shop"
+            sx={linkStyle}
+            onClick={() => setOpenMenu(false)}
+          >
             {t("Shop")}
-          </Link>
+          </Box>
 
           {token ? (
             <>
-              <Link
+              <Box
+                component={Link}
                 to="/cart"
-                style={linkStyle}
+                sx={linkStyle}
                 onClick={() => setOpenMenu(false)}
               >
                 {t("Cart")} ({cartCount})
-              </Link>
+              </Box>
 
-              {/* <Link
+              <Box
+                component={Link}
                 to="/profile"
-                style={linkStyle}
+                sx={linkStyle}
                 onClick={() => setOpenMenu(false)}
               >
                 {t("Profile")}
-              </Link> */}
+              </Box>
 
               <Button
                 onClick={handleLogout}
@@ -293,6 +339,7 @@ export default function Navbar({ mode, handleTheme }) {
                   justifyContent: "flex-start",
                   padding: 0,
                   color: "text.secondary",
+                  textTransform: "none",
                 }}
               >
                 {t("Logout")}
@@ -300,25 +347,63 @@ export default function Navbar({ mode, handleTheme }) {
             </>
           ) : (
             <>
-              <Link
+              <Box
+                component={Link}
                 to="/login"
-                style={linkStyle}
+                sx={linkStyle}
                 onClick={() => setOpenMenu(false)}
               >
                 {t("Login")}
-              </Link>
+              </Box>
 
-              <Link
+              <Box
+                component={Link}
                 to="/register"
-                style={linkStyle}
+                sx={linkStyle}
                 onClick={() => setOpenMenu(false)}
               >
                 {t("Register")}
-              </Link>
+              </Box>
             </>
           )}
 
-          <TextField placeholder="Search products..." size="small" fullWidth />
+          {/* Mobile Theme + Language */}
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <IconButton
+              onClick={handleTheme}
+              sx={{
+                color: "text.secondary",
+              }}
+            >
+              {mode === "light" ? (
+                <DarkModeIcon />
+              ) : (
+                <LightModeIcon />
+              )}
+            </IconButton>
+
+            <IconButton
+              onClick={handleLanguage}
+              sx={{
+                color: "text.secondary",
+              }}
+            >
+              <LanguageIcon />
+            </IconButton>
+          </Box>
+
+          <TextField
+            placeholder={t("Search products")}
+            size="small"
+            fullWidth
+          />
         </Box>
       </Container>
     </Box>

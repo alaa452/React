@@ -17,10 +17,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 import { registerSchema } from "../../validations/ResisterSchems";
 
 export default function Register() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const [serverErrors, setServerErrors] = useState([]);
 
@@ -65,7 +69,7 @@ export default function Register() {
       } else {
         const message =
           error.response?.data?.message ||
-          "Registration failed. Please try again.";
+          t("Registration failed");
 
         setServerErrors([message]);
       }
@@ -78,11 +82,13 @@ export default function Register() {
       sx={{
         minHeight: "calc(100vh - 70px)",
         mt: "70px",
+
         py: {
           xs: "40px",
           md: "70px",
         },
-        backgroundColor: "#background.default",
+
+        backgroundColor: "background.default",
 
         display: "flex",
         alignItems: "center",
@@ -101,11 +107,17 @@ export default function Register() {
             },
 
             backgroundColor: "background.paper",
-            border: "1px solid #E2E8F0",
+
+            border: "1px solid",
+            borderColor: "divider",
+
             borderRadius: "16px",
+
             boxShadow: "0 12px 35px rgba(0, 0, 0, 0.08)",
           }}
         >
+          {/* Header */}
+
           <Box
             sx={{
               mb: "32px",
@@ -116,15 +128,17 @@ export default function Register() {
               component="h1"
               sx={{
                 color: "text.primary",
+
                 fontSize: {
                   xs: "28px",
                   sm: "32px",
                 },
+
                 lineHeight: "40px",
                 fontWeight: 700,
               }}
             >
-              Create Account
+              {t("Create Account")}
             </Typography>
 
             <Typography
@@ -135,17 +149,22 @@ export default function Register() {
                 lineHeight: "22px",
               }}
             >
-              Create your account and start shopping with KnowledgeShop
+              {t("Register Description")}
             </Typography>
           </Box>
+
+          {/* Server Errors */}
 
           {serverErrors.length > 0 && (
             <Box
               sx={{
                 mb: "20px",
                 p: "12px 16px",
+
                 backgroundColor: "#FFF1F2",
+
                 border: "1px solid #FECDD3",
+
                 borderRadius: "8px",
               }}
             >
@@ -164,6 +183,8 @@ export default function Register() {
             </Box>
           )}
 
+          {/* Form */}
+
           <Box
             component="form"
             onSubmit={handleSubmit(registerForm)}
@@ -177,7 +198,7 @@ export default function Register() {
             <TextField
               {...register("userName")}
               id="userName"
-              label="Username"
+              label={t("Username")}
               type="text"
               variant="outlined"
               fullWidth
@@ -189,7 +210,7 @@ export default function Register() {
             <TextField
               {...register("fullName")}
               id="fullName"
-              label="Full Name"
+              label={t("Full Name")}
               type="text"
               variant="outlined"
               fullWidth
@@ -201,7 +222,7 @@ export default function Register() {
             <TextField
               {...register("email")}
               id="email"
-              label="Email"
+              label={t("Email")}
               type="email"
               variant="outlined"
               fullWidth
@@ -213,7 +234,7 @@ export default function Register() {
             <TextField
               {...register("phoneNumber")}
               id="phoneNumber"
-              label="Phone Number"
+              label={t("Phone Number")}
               type="tel"
               variant="outlined"
               fullWidth
@@ -225,7 +246,7 @@ export default function Register() {
             <TextField
               {...register("password")}
               id="password"
-              label="Password"
+              label={t("Password")}
               type="password"
               variant="outlined"
               fullWidth
@@ -242,11 +263,15 @@ export default function Register() {
               sx={{
                 height: "50px",
                 borderRadius: "8px",
+
                 backgroundColor: "#004AC6",
-                color: "background.paper",
+                color: "#fff",
+
                 textTransform: "none",
+
                 fontSize: "16px",
                 fontWeight: 600,
+
                 boxShadow: "none",
 
                 "&:hover": {
@@ -256,7 +281,7 @@ export default function Register() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#AFC4E8",
-                  color: "background.paper",
+                  color: "#fff",
                 },
               }}
             >
@@ -264,14 +289,16 @@ export default function Register() {
                 <CircularProgress
                   size={23}
                   sx={{
-                    color: "background.paper",
+                    color: "#fff",
                   }}
                 />
               ) : (
-                "Create Account"
+                t("Create Account")
               )}
             </Button>
           </Box>
+
+          {/* Login Link */}
 
           <Typography
             sx={{
@@ -281,7 +308,8 @@ export default function Register() {
               textAlign: "center",
             }}
           >
-            Already have an account?{" "}
+            {t("Already have an account?")}{" "}
+
             <Link
               component={RouterLink}
               to="/login"
@@ -295,7 +323,7 @@ export default function Register() {
                 },
               }}
             >
-              Login
+              {t("Login")}
             </Link>
           </Typography>
         </Box>

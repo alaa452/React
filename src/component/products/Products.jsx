@@ -317,7 +317,7 @@ depending on the format of the data coming from the API.
                         md: "240px",
                       },
                       overflow: "hidden",
-                      backgroundColor: "#background.paper",
+                      backgroundColor: "#FFFFFF",
 
                       display: "flex",
                       alignItems: "center",

@@ -15,6 +15,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import useCart from "../../hook/useCart";
 import useRemoveFromCart from "../../hook/useRemoveFromCart";
@@ -22,6 +23,8 @@ import useUpdateCartItem from "../../hook/useUpdateCartItem";
 
 export default function Cart() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isError, error } = useCart();
 
@@ -103,7 +106,7 @@ export default function Cart() {
             textAlign: "center",
           }}
         >
-          {error?.message || "Failed to load cart"}
+          {error?.message || t("Failed to load cart")}
         </Typography>
       </Box>
     );
@@ -115,6 +118,7 @@ export default function Cart() {
       sx={{
         mt: "90px",
         mb: "80px",
+        color: "text.primary",
       }}
     >
       <Container maxWidth="xl">
@@ -134,7 +138,7 @@ export default function Cart() {
               color: "text.primary",
             }}
           >
-            Shopping Cart
+            {t("Shopping Cart")}
           </Typography>
 
           <Typography
@@ -144,7 +148,7 @@ export default function Cart() {
               fontSize: "15px",
             }}
           >
-            Review your products before checkout.
+            {t("Review your products before checkout")}
           </Typography>
         </Box>
 
@@ -158,9 +162,12 @@ export default function Cart() {
               justifyContent: "center",
               gap: "16px",
 
-              border: "1px solid #E2E8F0",
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "16px",
-              backgroundColor: "#F8FAFC",
+              backgroundColor: "background.paper",
+
               textAlign: "center",
               px: "24px",
             }}
@@ -193,7 +200,7 @@ export default function Cart() {
                 color: "text.primary",
               }}
             >
-              Your cart is empty
+              {t("Your cart is empty")}
             </Typography>
 
             <Typography
@@ -204,7 +211,7 @@ export default function Cart() {
                 lineHeight: "23px",
               }}
             >
-              You have not added any products to your cart yet.
+              {t("You have not added any products to your cart yet")}
             </Typography>
 
             <Button
@@ -226,7 +233,7 @@ export default function Cart() {
                 },
               }}
             >
-              Start Shopping
+              {t("Start Shopping")}
             </Button>
           </Box>
         ) : (
@@ -277,9 +284,12 @@ export default function Cart() {
                       md: "24px",
                     },
 
-                    border: "1px solid #E2E8F0",
+                    border: "1px solid",
+                    borderColor: "divider",
+
                     borderRadius: "14px",
                     backgroundColor: "background.paper",
+
                     boxShadow: "0 4px 14px rgba(0, 0, 0, 0.04)",
                   }}
                 >
@@ -330,7 +340,10 @@ export default function Cart() {
                       sx={{
                         width: "36px",
                         height: "36px",
-                        border: "1px solid #E2E8F0",
+
+                        border: "1px solid",
+                        borderColor: "divider",
+
                         borderRadius: "8px",
 
                         "&:hover": {
@@ -348,11 +361,11 @@ export default function Cart() {
                         textAlign: "center",
                         fontSize: "16px",
                         fontWeight: 600,
+                        color: "text.primary",
                       }}
                     >
                       {item.count}
                     </Typography>
-
 
                     <IconButton
                       size="small"
@@ -366,7 +379,10 @@ export default function Cart() {
                       sx={{
                         width: "36px",
                         height: "36px",
-                        border: "1px solid #E2E8F0",
+
+                        border: "1px solid",
+                        borderColor: "divider",
+
                         borderRadius: "8px",
 
                         "&:hover": {
@@ -392,7 +408,7 @@ export default function Cart() {
                         fontSize: "13px",
                       }}
                     >
-                      Total
+                      {t("Total")}
                     </Typography>
 
                     <Typography
@@ -432,11 +448,10 @@ export default function Cart() {
                       fontWeight: 600,
                     }}
                   >
-                    Remove
+                    {t("Remove")}
                   </Button>
                 </Box>
               ))}
-
 
               <Box>
                 <Button
@@ -449,11 +464,12 @@ export default function Cart() {
                     fontWeight: 600,
                   }}
                 >
-                  Continue Shopping
+                  {t("Continue Shopping")}
                 </Button>
               </Box>
             </Box>
 
+            {/* Order Summary */}
 
             <Box
               sx={{
@@ -466,7 +482,9 @@ export default function Cart() {
 
                 p: "24px",
 
-                border: "1px solid #E2E8F0",
+                border: "1px solid",
+                borderColor: "divider",
+
                 borderRadius: "14px",
                 backgroundColor: "background.paper",
 
@@ -489,7 +507,7 @@ export default function Cart() {
                   color: "text.primary",
                 }}
               >
-                Order Summary
+                {t("Order Summary")}
               </Typography>
 
               <Box
@@ -500,7 +518,6 @@ export default function Cart() {
                   gap: "16px",
                 }}
               >
-
                 <Box
                   sx={{
                     display: "flex",
@@ -509,10 +526,15 @@ export default function Cart() {
                   }}
                 >
                   <Typography sx={{ color: "text.secondary" }}>
-                    Products
+                    {t("Products")}
                   </Typography>
 
-                  <Typography fontWeight={600}>
+                  <Typography
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.primary",
+                    }}
+                  >
                     {cartItems.length}
                   </Typography>
                 </Box>
@@ -525,16 +547,21 @@ export default function Cart() {
                   }}
                 >
                   <Typography sx={{ color: "text.secondary" }}>
-                    Subtotal
+                    {t("Subtotal")}
                   </Typography>
 
-                  <Typography fontWeight={600}>
+                  <Typography
+                    sx={{
+                      fontWeight: 600,
+                      color: "text.primary",
+                    }}
+                  >
                     {formatPrice(cartTotal)}
                   </Typography>
                 </Box>
 
                 <Divider />
-                
+
                 <Box
                   sx={{
                     display: "flex",
@@ -547,9 +574,10 @@ export default function Cart() {
                     sx={{
                       fontSize: "17px",
                       fontWeight: 700,
+                      color: "text.primary",
                     }}
                   >
-                    Total
+                    {t("Total")}
                   </Typography>
 
                   <Typography
@@ -563,7 +591,6 @@ export default function Cart() {
                   </Typography>
                 </Box>
 
-                {/* Checkout */}
                 <Button
                   type="button"
                   variant="contained"
@@ -585,7 +612,7 @@ export default function Cart() {
                     },
                   }}
                 >
-                  Proceed to Checkout
+                  {t("Proceed to Checkout")}
                 </Button>
               </Box>
             </Box>

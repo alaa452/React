@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
+import { useTranslation } from "react-i18next";
+
 function ProfileOrders() {
+  const { t } = useTranslation();
+
   const orders =
     JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -11,21 +15,21 @@ function ProfileOrders() {
         sx={{
           fontSize: "24px",
           fontWeight: 700,
-          color: "#202124",
+          color: "text.primary",
           mb: "8px",
         }}
       >
-        My Orders
+        {t("My Orders")}
       </Typography>
 
       <Typography
         sx={{
-          color: "#434655",
+          color: "text.secondary",
           fontSize: "14px",
           mb: "28px",
         }}
       >
-        View your previous orders.
+        {t("View your previous orders")}
       </Typography>
 
       {orders.length === 0 ? (
@@ -33,27 +37,33 @@ function ProfileOrders() {
           sx={{
             p: "40px",
             textAlign: "center",
-            border: "1px solid #E2E8F0",
+
+            border: "1px solid",
+            borderColor: "divider",
+
             borderRadius: "12px",
+
+            backgroundColor: "background.paper",
           }}
         >
           <Typography
             sx={{
               fontSize: "18px",
               fontWeight: 600,
+              color: "text.primary",
             }}
           >
-            No orders yet
+            {t("No orders yet")}
           </Typography>
 
           <Typography
             sx={{
               mt: "6px",
-              color: "#434655",
+              color: "text.secondary",
               fontSize: "14px",
             }}
           >
-            You have not placed any orders yet.
+            {t("You have not placed any orders yet")}
           </Typography>
         </Box>
       ) : (
@@ -69,8 +79,13 @@ function ProfileOrders() {
               key={order.id}
               sx={{
                 p: "20px",
-                border: "1px solid #E2E8F0",
+
+                border: "1px solid",
+                borderColor: "divider",
+
                 borderRadius: "12px",
+
+                backgroundColor: "background.paper",
               }}
             >
               <Box
@@ -85,14 +100,15 @@ function ProfileOrders() {
                     sx={{
                       fontWeight: 700,
                       fontSize: "16px",
+                      color: "text.primary",
                     }}
                   >
-                    Order #{order.id}
+                    {t("Order")} #{order.id}
                   </Typography>
 
                   <Typography
                     sx={{
-                      color: "#434655",
+                      color: "text.secondary",
                       fontSize: "13px",
                       mt: "4px",
                     }}
@@ -116,9 +132,13 @@ function ProfileOrders() {
                 sx={{
                   fontSize: "14px",
                   mb: "14px",
+                  color: "text.primary",
                 }}
               >
-                Payment: {order.paymentMethod}
+                {t("Payment")}:{" "}
+                {order.paymentMethod === "cash"
+                  ? t("Cash")
+                  : t("Visa")}
               </Typography>
 
               {order.items.map((item, index) => (
@@ -127,11 +147,19 @@ function ProfileOrders() {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
+
                     py: "10px",
-                    borderTop: "1px solid #E2E8F0",
+
+                    borderTop: "1px solid",
+                    borderColor: "divider",
                   }}
                 >
-                  <Typography sx={{ fontSize: "14px" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      color: "text.primary",
+                    }}
+                  >
                     {item.productName} × {item.count}
                   </Typography>
 
@@ -139,6 +167,7 @@ function ProfileOrders() {
                     sx={{
                       fontSize: "14px",
                       fontWeight: 600,
+                      color: "text.primary",
                     }}
                   >
                     ${item.totalPrice}

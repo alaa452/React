@@ -1,7 +1,18 @@
 import React from "react";
+
 import Categories from "../../component/categories/Categories";
 import Products from "../../component/products/Products";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+
+import { useTranslation } from "react-i18next";
+
 import homeImage from "../../image/homeImage.png";
 import smallHomeImage from "../../image/smallHomeImage.png";
 import deliveryIcon from "../../image/deliveryIcon.png";
@@ -10,12 +21,20 @@ import returnIcon from "../../image/returnIcon.png";
 import supportCustomerIcon from "../../image/supportCustomerIcon.png";
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundColor: "background.default",
+        color: "text.primary",
+      }}
+    >
       <Container maxWidth="xl">
         <Box>
+          {/* Hero Section */}
+
           <Box
-            variant="div"
             sx={{
               display: "flex",
               alignItems: "center",
@@ -35,7 +54,7 @@ export default function Home() {
               <Typography
                 variant="body1"
                 sx={{
-                  fontWeight: "600",
+                  fontWeight: 600,
                   color: "#004AC6",
                   fontSize: "14px",
                   backgroundColor: "#2564eb10",
@@ -47,8 +66,9 @@ export default function Home() {
                   justifyContent: "center",
                 }}
               >
-                New Season Arrivals5
+                {t("New Season Arrivals")}
               </Typography>
+
               <Typography
                 variant="h1"
                 sx={{
@@ -56,30 +76,39 @@ export default function Home() {
                   fontSize: "40px",
                   lineHeight: "1.5",
                   letterSpacing: "-0.8px",
+                  color: "text.primary",
                 }}
               >
-                <Typography
-                  variant="h1"
+                <Box
+                  component="span"
                   sx={{
-                    fontWeight: "bold",
-                    fontSize: "40px",
+                    display: "block",
                     color: "#004AC6",
                   }}
                 >
-                  Everything You Need,
-                </Typography>
-                All in One Place
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ fontSize: "18px", color: "#text.secondary", lineHeight: "1.5" }}
-              >
-                Discover our curated collection of premium products designed for
-                the modern lifestyle. Quality meets convenience at
-                KnowledgeShop.
+                  {t("Everything You Need")}
+                </Box>
+
+                {t("All in One Place")}
               </Typography>
 
-              <Box sx={{ display: "flex", gap: "16px" }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: "18px",
+                  color: "text.secondary",
+                  lineHeight: "1.5",
+                }}
+              >
+                {t("Home Description")}
+              </Typography>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "16px",
+                }}
+              >
                 <Button
                   variant="contained"
                   sx={{
@@ -93,11 +122,14 @@ export default function Home() {
                     textTransform: "none",
                     letterSpacing: "0.14px",
 
-                    "&:hover": { backgroundColor: "#003399" },
+                    "&:hover": {
+                      backgroundColor: "#003399",
+                    },
                   }}
                 >
-                  Shop Now
+                  {t("Shop Now")}
                 </Button>
+
                 <Button
                   variant="outlined"
                   sx={{
@@ -111,13 +143,20 @@ export default function Home() {
                     textTransform: "none",
                     letterSpacing: "0.14px",
                     borderWidth: "2px",
-                    "&:hover": { backgroundColor: "#004AC6", color: "#fff" },
+
+                    "&:hover": {
+                      backgroundColor: "#004AC6",
+                      color: "#fff",
+                    },
                   }}
                 >
-                  Explore Categories
+                  {t("Explore Categories")}
                 </Button>
               </Box>
             </Box>
+
+            {/* Images */}
+
             <Box>
               <Box
                 component="img"
@@ -131,6 +170,7 @@ export default function Home() {
                   transform: "rotate(4deg)",
                 }}
               />
+
               <Box
                 component="img"
                 src={smallHomeImage}
@@ -143,7 +183,10 @@ export default function Home() {
               />
             </Box>
           </Box>
-          <Box variant="div" sx={{ marginTop: "32px" }}>
+
+          {/* Features */}
+
+          <Box sx={{ marginTop: "32px" }}>
             <Grid container spacing={15}>
               <Grid item xs={12} sm={6} md={3}>
                 <Box
@@ -154,23 +197,32 @@ export default function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <Box component="img" src={deliveryIcon} alt="Delivery Icon" />
+                  <Box
+                    component="img"
+                    src={deliveryIcon}
+                    alt="Delivery Icon"
+                  />
 
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Fast Delivery
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "text.primary",
+                      }}
+                    >
+                      {t("Fast Delivery")}
                     </Typography>
 
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#text.secondary",
-                        fontWeight: "Regular",
+                        color: "text.secondary",
                         height: "40px !important",
                         fontSize: "14px",
                       }}
                     >
-                      Free shipping on orders $100+
+                      {t("Free Shipping")}
                     </Typography>
                   </Box>
                 </Box>
@@ -185,23 +237,32 @@ export default function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <Box component="img" src={paymentIcon} alt="Payment Icon" />
+                  <Box
+                    component="img"
+                    src={paymentIcon}
+                    alt="Payment Icon"
+                  />
 
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Secure Payment
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "text.primary",
+                      }}
+                    >
+                      {t("Secure Payment")}
                     </Typography>
 
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#text.secondary",
-                        fontWeight: "Regular",
+                        color: "text.secondary",
                         height: "40px !important",
                         fontSize: "14px",
                       }}
                     >
-                      100% secure payment methods
+                      {t("Secure Payment Description")}
                     </Typography>
                   </Box>
                 </Box>
@@ -216,23 +277,32 @@ export default function Home() {
                     alignItems: "center",
                   }}
                 >
-                  <Box component="img" src={returnIcon} alt="Support Icon" />
+                  <Box
+                    component="img"
+                    src={returnIcon}
+                    alt="Return Icon"
+                  />
 
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Easy Returns
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "text.primary",
+                      }}
+                    >
+                      {t("Easy Returns")}
                     </Typography>
 
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#text.secondary",
-                        fontWeight: "Regular",
+                        color: "text.secondary",
                         height: "40px !important",
                         fontSize: "14px",
                       }}
                     >
-                      30-day money-back guarantee
+                      {t("Returns Description")}
                     </Typography>
                   </Box>
                 </Box>
@@ -254,27 +324,35 @@ export default function Home() {
                   />
 
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      Customer Support
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "text.primary",
+                      }}
+                    >
+                      {t("Customer Support")}
                     </Typography>
 
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#text.secondary",
-                        fontWeight: "Regular",
+                        color: "text.secondary",
                         height: "40px !important",
                         fontSize: "14px",
                       }}
                     >
-                      Dedicated 24/7 online assistance
+                      {t("Customer Support Description")}
                     </Typography>
                   </Box>
                 </Box>
               </Grid>
             </Grid>
           </Box>
-          <Box variant="div" sx={{ marginTop: "32px" }}>
+
+          {/* Categories */}
+
+          <Box sx={{ marginTop: "32px" }}>
             <Box>
               <Typography
                 variant="h2"
@@ -284,19 +362,25 @@ export default function Home() {
                   marginBottom: "16px",
                   lineHeight: "40px",
                   letterSpacing: "0.64px",
+                  color: "text.primary",
                 }}
               >
-                Shop by Categories
+                {t("Shop by Categories")}
               </Typography>
+
               <Typography
                 variant="body1"
-                sx={{ color: "#text.secondary", fontSize: "16px", lineHeight: "24px" }}
+                sx={{
+                  color: "text.secondary",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                }}
               >
-                Find exactly what you're looking for
+                {t("Find exactly what you're looking for")}
               </Typography>
             </Box>
+
             <Categories />
-            <Box></Box>
           </Box>
         </Box>
 

@@ -8,9 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useTranslation } from "react-i18next";
+
 import authAxiosInstance from "../../api/authAxiosInstance";
 
 function ProfileInfo() {
+  const { t } = useTranslation();
+
   const [profile, setProfile] = useState(null);
 
   const [email, setEmail] = useState("");
@@ -21,7 +25,6 @@ function ProfileInfo() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // جلب معلومات المستخدم
   const getProfile = async () => {
     try {
       setIsLoading(true);
@@ -29,9 +32,8 @@ function ProfileInfo() {
 
       const response = await authAxiosInstance.get("/Profile");
 
-      console.log("Profile:", response.data);
-
-      const profileData = response.data?.response ?? response.data;
+      const profileData =
+        response.data?.response ?? response.data;
 
       setProfile(profileData);
 
@@ -41,17 +43,16 @@ function ProfileInfo() {
 
       setErrorMessage(
         error.response?.data?.message ||
-          "Failed to load profile information",
+          t("Failed to load profile information"),
       );
     } finally {
       setIsLoading(false);
     }
   };
 
-  // تعديل البريد
   const updateProfile = async () => {
     if (email.trim() === "") {
-      setErrorMessage("Email is required");
+      setErrorMessage(t("Email is required"));
       return;
     }
 
@@ -65,7 +66,9 @@ function ProfileInfo() {
         email: email,
       });
 
-      setSuccessMessage("Profile updated successfully");
+      setSuccessMessage(
+        t("Profile updated successfully"),
+      );
 
       getProfile();
     } catch (error) {
@@ -73,7 +76,7 @@ function ProfileInfo() {
 
       setErrorMessage(
         error.response?.data?.message ||
-          "Failed to update profile",
+          t("Failed to update profile"),
       );
     } finally {
       setIsUpdating(false);
@@ -84,7 +87,6 @@ function ProfileInfo() {
     getProfile();
   }, []);
 
-  // تحميل
   if (isLoading) {
     return (
       <Box
@@ -102,31 +104,30 @@ function ProfileInfo() {
 
   return (
     <Box>
-      {/* العنوان */}
+
       <Box sx={{ mb: "28px" }}>
         <Typography
           component="h2"
           sx={{
             fontSize: "24px",
             fontWeight: 700,
-            color: "#202124",
+            color: "text.primary",
           }}
         >
-          Personal Information
+          {t("Personal Information")}
         </Typography>
 
         <Typography
           sx={{
             mt: "8px",
-            color: "#434655",
+            color: "text.secondary",
             fontSize: "14px",
           }}
         >
-          View and update your account information.
+          {t("Profile Description")}
         </Typography>
       </Box>
 
-      {/* رسالة الخطأ */}
       {errorMessage && (
         <Box
           sx={{
@@ -147,8 +148,6 @@ function ProfileInfo() {
           </Typography>
         </Box>
       )}
-
-      {/* رسالة النجاح */}
       {successMessage && (
         <Box
           sx={{
@@ -170,7 +169,6 @@ function ProfileInfo() {
         </Box>
       )}
 
-      {/* معلومات المستخدم */}
       <Box
         sx={{
           display: "flex",
@@ -179,42 +177,40 @@ function ProfileInfo() {
           maxWidth: "600px",
         }}
       >
-        {/* Username */}
         {profile?.userName && (
           <TextField
-            label="Username"
+            label={t("Username")}
             value={profile.userName}
             fullWidth
             disabled
           />
         )}
 
-        {/* Full Name */}
         {profile?.fullName && (
           <TextField
-            label="Full Name"
+            label={t("Full Name")}
             value={profile.fullName}
             fullWidth
             disabled
           />
         )}
 
-        {/* Phone Number */}
         {profile?.phoneNumber && (
           <TextField
-            label="Phone Number"
+            label={t("Phone Number")}
             value={profile.phoneNumber}
             fullWidth
             disabled
           />
         )}
 
-        {/* Email */}
         <TextField
-          label="Email"
+          label={t("Email")}
           type="email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) =>
+            setEmail(event.target.value)
+          }
           fullWidth
           sx={{
             "& .MuiOutlinedInput-root": {
@@ -231,7 +227,6 @@ function ProfileInfo() {
           }}
         />
 
-        {/* زر الحفظ */}
         <Button
           variant="contained"
           onClick={updateProfile}
@@ -241,12 +236,16 @@ function ProfileInfo() {
               xs: "100%",
               sm: "180px",
             },
+
             height: "48px",
             borderRadius: "8px",
+
             backgroundColor: "#004AC6",
+
             textTransform: "none",
             fontSize: "15px",
             fontWeight: 600,
+
             boxShadow: "none",
 
             "&:hover": {
@@ -263,7 +262,7 @@ function ProfileInfo() {
               }}
             />
           ) : (
-            "Save Changes"
+            t("Save Changes")
           )}
         </Button>
       </Box>

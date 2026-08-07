@@ -7,7 +7,11 @@ import {
 
 import { NavLink, Outlet } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+
 function ProfileLayout() {
+  const { t } = useTranslation();
+
   return (
     <Box
       component="section"
@@ -17,6 +21,7 @@ function ProfileLayout() {
       }}
     >
       <Container maxWidth="xl">
+        {/* Header */}
 
         <Box sx={{ mb: "32px" }}>
           <Typography
@@ -27,23 +32,22 @@ function ProfileLayout() {
                 md: "34px",
               },
               fontWeight: 700,
-              color: "#202124",
+              color: "text.primary",
             }}
           >
-            My Profile
+            {t("My Profile")}
           </Typography>
 
           <Typography
             sx={{
               mt: "8px",
-              color: "#434655",
+              color: "text.secondary",
               fontSize: "15px",
             }}
           >
-            Manage your personal information and view your orders.
+            {t("Profile Layout Description")}
           </Typography>
         </Box>
-
 
         <Box
           sx={{
@@ -57,6 +61,7 @@ function ProfileLayout() {
             },
           }}
         >
+          {/* Sidebar */}
 
           <Box
             sx={{
@@ -68,6 +73,7 @@ function ProfileLayout() {
               flexShrink: 0,
 
               display: "flex",
+
               flexDirection: {
                 xs: "row",
                 md: "column",
@@ -77,27 +83,32 @@ function ProfileLayout() {
 
               p: "16px",
 
-              border: "1px solid #E2E8F0",
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "12px",
-              backgroundColor: "#FFFFFF",
+
+              backgroundColor: "background.paper",
             }}
           >
-
             <Button
               component={NavLink}
               to="/profile/info"
               sx={{
                 justifyContent: "flex-start",
+
                 height: "46px",
+
                 px: "16px",
 
                 borderRadius: "8px",
+
                 textTransform: "none",
 
                 fontSize: "14px",
                 fontWeight: 600,
 
-                color: "#434655",
+                color: "text.secondary",
 
                 "&.active": {
                   backgroundColor: "#004AC6",
@@ -115,25 +126,27 @@ function ProfileLayout() {
                 },
               }}
             >
-              Personal Information
+              {t("Personal Information")}
             </Button>
-
 
             <Button
               component={NavLink}
               to="/profile/orders"
               sx={{
                 justifyContent: "flex-start",
+
                 height: "46px",
+
                 px: "16px",
 
                 borderRadius: "8px",
+
                 textTransform: "none",
 
                 fontSize: "14px",
                 fontWeight: 600,
 
-                color: "#434655",
+                color: "text.secondary",
 
                 "&.active": {
                   backgroundColor: "#004AC6",
@@ -151,13 +164,16 @@ function ProfileLayout() {
                 },
               }}
             >
-              My Orders
+              {t("My Orders")}
             </Button>
           </Box>
+
+          {/* Page Content */}
 
           <Box
             sx={{
               flexGrow: 1,
+
               width: "100%",
 
               p: {
@@ -165,9 +181,12 @@ function ProfileLayout() {
                 md: "28px",
               },
 
-              border: "1px solid #E2E8F0",
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "12px",
-              backgroundColor: "#FFFFFF",
+
+              backgroundColor: "background.paper",
             }}
           >
             <Outlet />

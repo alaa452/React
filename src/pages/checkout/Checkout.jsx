@@ -18,16 +18,19 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useTranslation } from "react-i18next";
+
 import useCart from "../../hook/useCart";
 import useCheckout from "../../hook/useCheckout";
 
 function Checkout() {
+  const { t } = useTranslation();
+
   const { data, isLoading, isError, error } = useCart();
 
   const [paymentMethod, setPaymentMethod] = useState("");
 
   const { mutate: checkoutMutate, isPending } = useCheckout();
-
 
   if (isLoading) {
     return (
@@ -44,7 +47,6 @@ function Checkout() {
     );
   }
 
- 
   if (isError) {
     return (
       <Typography
@@ -54,7 +56,7 @@ function Checkout() {
           textAlign: "center",
         }}
       >
-        {error?.message || "Something went wrong"}
+        {error?.message || t("Something went wrong")}
       </Typography>
     );
   }
@@ -72,7 +74,8 @@ function Checkout() {
       },
       {
         onSuccess: () => {
-          const oldOrders = JSON.parse(localStorage.getItem("orders")) || [];
+          const oldOrders =
+            JSON.parse(localStorage.getItem("orders")) || [];
 
           const newOrder = {
             id: Date.now(),
@@ -87,7 +90,10 @@ function Checkout() {
 
           const updatedOrders = [...oldOrders, newOrder];
 
-          localStorage.setItem("orders", JSON.stringify(updatedOrders));
+          localStorage.setItem(
+            "orders",
+            JSON.stringify(updatedOrders),
+          );
         },
       },
     );
@@ -99,9 +105,11 @@ function Checkout() {
       sx={{
         mt: "90px",
         mb: "80px",
+        color: "text.primary",
       }}
     >
       <Container maxWidth="lg">
+        {/* Header */}
 
         <Box
           sx={{
@@ -119,7 +127,7 @@ function Checkout() {
               color: "text.primary",
             }}
           >
-            Checkout
+            {t("Checkout")}
           </Typography>
 
           <Typography
@@ -129,29 +137,36 @@ function Checkout() {
               fontSize: "15px",
             }}
           >
-            Review your order and choose your payment method.
+            {t("Checkout Description")}
           </Typography>
         </Box>
 
         <Box
           sx={{
             display: "flex",
+
             flexDirection: {
               xs: "column",
               md: "row",
             },
+
             alignItems: "flex-start",
             gap: "32px",
           }}
         >
-  
+          {/* Order */}
+
           <Box
             sx={{
               flexGrow: 1,
               width: "100%",
-              border: "1px solid #E2E8F0",
+
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "12px",
               overflow: "hidden",
+
               backgroundColor: "background.paper",
             }}
           >
@@ -161,10 +176,14 @@ function Checkout() {
                 p: "20px",
                 fontSize: "18px",
                 fontWeight: 700,
-                borderBottom: "1px solid #E2E8F0",
+
+                color: "text.primary",
+
+                borderBottom: "1px solid",
+                borderColor: "divider",
               }}
             >
-              Your Order
+              {t("Your Order")}
             </Typography>
 
             <TableContainer>
@@ -176,19 +195,19 @@ function Checkout() {
                     }}
                   >
                     <TableCell>
-                      <strong>Product</strong>
+                      <strong>{t("Product")}</strong>
                     </TableCell>
 
                     <TableCell>
-                      <strong>Price</strong>
+                      <strong>{t("Price")}</strong>
                     </TableCell>
 
                     <TableCell align="center">
-                      <strong>Quantity</strong>
+                      <strong>{t("Quantity")}</strong>
                     </TableCell>
 
                     <TableCell>
-                      <strong>Total</strong>
+                      <strong>{t("Total")}</strong>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -196,11 +215,17 @@ function Checkout() {
                 <TableBody>
                   {items.map((item) => (
                     <TableRow key={item.id}>
-                      <TableCell>{item.productName}</TableCell>
+                      <TableCell>
+                        {item.productName}
+                      </TableCell>
 
-                      <TableCell>${item.price}</TableCell>
+                      <TableCell>
+                        ${item.price}
+                      </TableCell>
 
-                      <TableCell align="center">{item.count}</TableCell>
+                      <TableCell align="center">
+                        {item.count}
+                      </TableCell>
 
                       <TableCell
                         sx={{
@@ -217,6 +242,7 @@ function Checkout() {
             </TableContainer>
           </Box>
 
+          {/* Payment */}
 
           <Box
             sx={{
@@ -224,12 +250,16 @@ function Checkout() {
                 xs: "100%",
                 md: "330px",
               },
+
               flexShrink: 0,
 
               p: "24px",
 
-              border: "1px solid #E2E8F0",
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "12px",
+
               backgroundColor: "background.paper",
 
               display: "flex",
@@ -245,7 +275,7 @@ function Checkout() {
                 color: "text.primary",
               }}
             >
-              Payment Method
+              {t("Payment Method")}
             </Typography>
 
             <Typography
@@ -254,18 +284,22 @@ function Checkout() {
                 fontSize: "14px",
               }}
             >
-              Choose how you would like to pay.
+              {t("Choose Payment Method")}
             </Typography>
 
             <FormControl fullWidth>
-              <InputLabel id="payment-method-label">Payment Method</InputLabel>
+              <InputLabel id="payment-method-label">
+                {t("Payment Method")}
+              </InputLabel>
 
               <Select
                 labelId="payment-method-label"
                 id="payment-method"
                 value={paymentMethod}
-                label="Payment Method"
-                onChange={(event) => setPaymentMethod(event.target.value)}
+                label={t("Payment Method")}
+                onChange={(event) =>
+                  setPaymentMethod(event.target.value)
+                }
                 sx={{
                   height: "50px",
                   borderRadius: "8px",
@@ -275,12 +309,15 @@ function Checkout() {
                   },
                 }}
               >
-                <MenuItem value="cash">Cash</MenuItem>
+                <MenuItem value="cash">
+                  {t("Cash")}
+                </MenuItem>
 
-                <MenuItem value="Visa">Visa</MenuItem>
+                <MenuItem value="Visa">
+                  {t("Visa")}
+                </MenuItem>
               </Select>
             </FormControl>
-
 
             <Button
               type="button"
@@ -293,6 +330,7 @@ function Checkout() {
                 borderRadius: "8px",
 
                 backgroundColor: "#004AC6",
+                color: "#fff",
 
                 textTransform: "none",
                 fontSize: "15px",
@@ -307,7 +345,7 @@ function Checkout() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#AFC4E8",
-                  color: "background.paper",
+                  color: "#fff",
                 },
               }}
             >
@@ -315,11 +353,11 @@ function Checkout() {
                 <CircularProgress
                   size={22}
                   sx={{
-                    color: "background.paper",
+                    color: "#fff",
                   }}
                 />
               ) : (
-                "Pay Now"
+                t("Pay Now")
               )}
             </Button>
           </Box>

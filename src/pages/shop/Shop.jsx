@@ -17,11 +17,14 @@ import {
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import Categories from "../../component/categories/Categories";
 import Products from "../../component/products/Products";
 
 function Shop() {
+  const { t } = useTranslation();
+
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -80,15 +83,18 @@ function Shop() {
       sx={{
         mt: "90px",
         mb: "80px",
+        color: "text.primary",
       }}
     >
       <Container maxWidth="xl">
+        {/* Breadcrumb */}
+
         <Breadcrumbs
           separator={
             <NavigateNextIcon
               sx={{
                 fontSize: "16px",
-                color: "#text.secondary",
+                color: "text.secondary",
               }}
             />
           }
@@ -106,7 +112,7 @@ function Shop() {
             to="/"
             underline="none"
             sx={{
-              color: "#text.secondary",
+              color: "text.secondary",
               fontSize: "14px",
 
               "&:hover": {
@@ -114,17 +120,17 @@ function Shop() {
               },
             }}
           >
-            Home
+            {t("Home")}
           </MuiLink>
 
           <Typography
             sx={{
-              color: "#text.primary",
+              color: "text.primary",
               fontSize: "14px",
               fontWeight: 700,
             }}
           >
-            Shop
+            {t("Shop")}
           </Typography>
         </Breadcrumbs>
 
@@ -134,12 +140,15 @@ function Shop() {
             alignItems: "flex-start",
             gap: "32px",
             width: "100%",
+
             flexDirection: {
               xs: "column",
               md: "row",
             },
           }}
         >
+          {/* Filters */}
+
           <Box
             component="aside"
             sx={{
@@ -147,13 +156,19 @@ function Shop() {
                 xs: "100%",
                 md: "360px",
               },
+
               flexShrink: 0,
+
               display: "flex",
               flexDirection: "column",
               gap: "24px",
-              border: "1px solid #E2E8F0",
+
+              border: "1px solid",
+              borderColor: "divider",
+
               borderRadius: "12px",
               padding: "24px",
+
               backgroundColor: "background.paper",
             }}
           >
@@ -170,10 +185,10 @@ function Shop() {
                   fontSize: "16px",
                   fontWeight: 700,
                   lineHeight: "20px",
-                  color: "#text.primary",
+                  color: "text.primary",
                 }}
               >
-                Filters
+                {t("Filters")}
               </Typography>
 
               <Button
@@ -193,25 +208,28 @@ function Shop() {
                   },
                 }}
               >
-                Clear All
+                {t("Clear All")}
               </Button>
             </Box>
 
-   
+            {/* Price */}
+
             <Box
               sx={{
                 display: "grid",
+
                 gridTemplateColumns: {
                   xs: "1fr",
                   sm: "repeat(2, minmax(0, 1fr))",
                   md: "repeat(2, minmax(0, 1fr))",
                 },
+
                 gap: "12px",
               }}
             >
               <TextField
                 id="min-price"
-                label="Min Price"
+                label={t("Min Price")}
                 type="number"
                 size="small"
                 fullWidth
@@ -244,7 +262,7 @@ function Shop() {
 
               <TextField
                 id="max-price"
-                label="Max Price"
+                label={t("Max Price")}
                 type="number"
                 size="small"
                 fullWidth
@@ -259,7 +277,7 @@ function Shop() {
                 error={isPriceRangeInvalid}
                 helperText={
                   isPriceRangeInvalid
-                    ? "Max price must be greater than min price"
+                    ? t("Max price must be greater than min price")
                     : ""
                 }
                 inputProps={{
@@ -287,6 +305,7 @@ function Shop() {
               />
             </Box>
 
+            {/* Sort By */}
 
             <FormControl
               fullWidth
@@ -306,25 +325,33 @@ function Shop() {
                 },
               }}
             >
-              <InputLabel id="sort-by-label">Sort By</InputLabel>
+              <InputLabel id="sort-by-label">
+                {t("Sort By")}
+              </InputLabel>
 
               <Select
                 labelId="sort-by-label"
                 id="sort-by"
                 value={sortBy}
-                label="Sort By"
+                label={t("Sort By")}
                 onChange={(event) => setSortBy(event.target.value)}
               >
                 <MenuItem value="">
-                  <em>Default</em>
+                  <em>{t("Default")}</em>
                 </MenuItem>
 
-                <MenuItem value="name">Name</MenuItem>
-                <MenuItem value="price">Price</MenuItem>
+                <MenuItem value="name">
+                  {t("Name")}
+                </MenuItem>
+
+                <MenuItem value="price">
+                  {t("Price")}
+                </MenuItem>
               </Select>
             </FormControl>
 
-            {/* order*/}
+            {/* Order */}
+
             <FormControl
               fullWidth
               size="small"
@@ -343,32 +370,40 @@ function Shop() {
                 },
               }}
             >
-              <InputLabel id="order-label">Order</InputLabel>
+              <InputLabel id="order-label">
+                {t("Order")}
+              </InputLabel>
 
               <Select
                 labelId="order-label"
                 id="order"
                 value={order}
-                label="Order"
+                label={t("Order")}
                 onChange={(event) => setOrder(event.target.value)}
               >
-                <MenuItem value="asc">Ascending</MenuItem>
-                <MenuItem value="desc">Descending</MenuItem>
+                <MenuItem value="asc">
+                  {t("Ascending")}
+                </MenuItem>
+
+                <MenuItem value="desc">
+                  {t("Descending")}
+                </MenuItem>
               </Select>
             </FormControl>
 
+            {/* Categories */}
 
             <Box>
               <Typography
                 sx={{
                   mb: "12px",
-                  color: "#text.secondary",
+                  color: "text.secondary",
                   fontSize: "14px",
                   lineHeight: "16px",
                   fontWeight: 500,
                 }}
               >
-                Categories
+                {t("Categories")}
               </Typography>
 
               <Categories
@@ -377,6 +412,8 @@ function Shop() {
                 onSelectCategory={setSelectedCategory}
               />
             </Box>
+
+            {/* Apply Filters */}
 
             <Button
               type="button"
@@ -399,25 +436,27 @@ function Shop() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#B8C8DF",
-                  color: "#background.paper",
+                  color: "#fff",
                 },
               }}
             >
-              Apply Filters
+              {t("Apply Filters")}
             </Button>
           </Box>
+
+          {/* Products */}
 
           <Box
             component="main"
             sx={{
               flexGrow: 1,
               minWidth: 0,
+
               display: "flex",
               flexDirection: "column",
               gap: "32px",
             }}
           >
-
             <Box
               sx={{
                 display: "flex",
@@ -432,28 +471,29 @@ function Shop() {
                     xs: "26px",
                     md: "32px",
                   },
+
                   lineHeight: {
                     xs: "34px",
                     md: "40px",
                   },
+
                   fontWeight: 700,
-                  color: "#text.primary",
+                  color: "text.primary",
                 }}
               >
-                Explore Our Exclusive Products
+                {t("Explore Our Exclusive Products")}
               </Typography>
 
               <Typography
                 sx={{
-                  color: "#text.secondary",
+                  color: "text.secondary",
                   fontSize: "16px",
                   lineHeight: "24px",
                 }}
               >
-                Discover products selected for quality and everyday use.
+                {t("Shop Description")}
               </Typography>
             </Box>
-
 
             <Products
               showHeader={false}

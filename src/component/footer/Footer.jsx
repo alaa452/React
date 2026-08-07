@@ -1,26 +1,64 @@
 import React from "react";
-import FooterLeft from "./FooterLeft";
-import FooterRight from "./FooterRight";
-import { Box, Container, Typography } from "@mui/material";
+
+import {
+  Box,
+  Container,
+  Typography,
+} from "@mui/material";
+
+import { useTranslation } from "react-i18next";
+
 import QRCode from "../../image/QRCode.png";
 import Trusted from "../../image/Trusted.png";
 import hotmail from "../../image/hotmail.png";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <Box sx={{ backgroundColor: "background.default", mt: 10 }}>
+    <Box
+      sx={{
+        backgroundColor: "background.default",
+        mt: 10,
+      }}
+    >
       <Container
         maxWidth="xl"
-        sx={{py:"32px"}}
+        sx={{
+          py: "32px",
+        }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          <Box sx={{ display: "flex", gap: "70px", width: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              gap: "70px",
+              width: "100%",
+
+              flexDirection: {
+                xs: "column",
+                md: "row",
+              },
+            }}
+          >
+            {/* Left Side */}
+
             <Box
               sx={{
                 display: "flex",
                 gap: "16px",
                 flexDirection: "column",
-                width: "20%",
+
+                width: {
+                  xs: "100%",
+                  md: "20%",
+                },
               }}
             >
               <Typography
@@ -31,217 +69,313 @@ export default function Footer() {
                   color: "#004AC6",
                 }}
               >
-                KnowledgeShop
+                {t("KnowledgeShop")}
               </Typography>
+
               <Typography
-                sx={{ color: "#text.secondary", fontSize: "14px", lineHeight: "20px" }}
+                sx={{
+                  color: "text.secondary",
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                }}
               >
-                Elevating your everyday experience through carefully curated
-                premium products and exceptional service.
+                {t("Footer Description")}
               </Typography>
-              <Box sx={{ display: "flex", gap: "16px" }}>
-                <Box component="img" src={QRCode} />
-                <Box component="img" src={Trusted} />
-                <Box component="img" src={hotmail} />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "16px",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={QRCode}
+                  alt="QR Code"
+                />
+
+                <Box
+                  component="img"
+                  src={Trusted}
+                  alt="Trusted"
+                />
+
+                <Box
+                  component="img"
+                  src={hotmail}
+                  alt="Email"
+                />
               </Box>
             </Box>
+
+            {/* Right Side */}
+
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "80%",
+
+                width: {
+                  xs: "100%",
+                  md: "80%",
+                },
+
                 gap: "24px",
+
+                flexDirection: {
+                  xs: "column",
+                  sm: "row",
+                },
               }}
             >
+              {/* Shop */}
+
               <Box
                 sx={{
                   display: "flex",
                   gap: "16px",
                   flexDirection: "column",
-                  width: "33.33%",
+                  width: {
+                    xs: "100%",
+                    sm: "33.33%",
+                  },
                 }}
               >
                 <Typography
                   sx={{
-                    fontWeight: "semiBold",
+                    fontWeight: 600,
                     fontSize: "14px",
                     lineHeight: "16px",
+                    color: "text.primary",
                   }}
                 >
-                  Shop
+                  {t("Shop")}
                 </Typography>
+
                 <Box
-                  sx={{ display: "flex", gap: "9px", flexDirection: "column" }}
+                  sx={{
+                    display: "flex",
+                    gap: "9px",
+                    flexDirection: "column",
+                  }}
                 >
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    All Products
+                    {t("All Products")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Categories
+                    {t("Categories")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Sale & Offers
+                    {t("Sale & Offers")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    New Arrivals
+                    {t("New Arrivals")}
                   </Typography>
                 </Box>
               </Box>
+
+              {/* Service */}
+
               <Box
                 sx={{
                   display: "flex",
                   gap: "16px",
                   flexDirection: "column",
-                  width: "33.33%",
+
+                  width: {
+                    xs: "100%",
+                    sm: "33.33%",
+                  },
                 }}
               >
                 <Typography
                   sx={{
-                    fontWeight: "semiBold",
+                    fontWeight: 600,
                     fontSize: "14px",
                     lineHeight: "16px",
+                    color: "text.primary",
                   }}
                 >
-                  Service
+                  {t("Service")}
                 </Typography>
+
                 <Box
-                  sx={{ display: "flex", gap: "9px", flexDirection: "column" }}
+                  sx={{
+                    display: "flex",
+                    gap: "9px",
+                    flexDirection: "column",
+                  }}
                 >
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Order Tracking
+                    {t("Order Tracking")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Shipping Policy
+                    {t("Shipping Policy")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Easy Returns
+                    {t("Easy Returns")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Help Center
+                    {t("Help Center")}
                   </Typography>
                 </Box>
               </Box>
+
+              {/* Legal */}
+
               <Box
                 sx={{
                   display: "flex",
                   gap: "16px",
                   flexDirection: "column",
-                  width: "33.33%",
+
+                  width: {
+                    xs: "100%",
+                    sm: "33.33%",
+                  },
                 }}
               >
                 <Typography
                   sx={{
-                    fontWeight: "semiBold",
+                    fontWeight: 600,
                     fontSize: "14px",
                     lineHeight: "16px",
+                    color: "text.primary",
                   }}
                 >
-                  Legal
+                  {t("Legal")}
                 </Typography>
+
                 <Box
-                  sx={{ display: "flex", gap: "9px", flexDirection: "column" }}
+                  sx={{
+                    display: "flex",
+                    gap: "9px",
+                    flexDirection: "column",
+                  }}
                 >
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Terms of Service
+                    {t("Terms of Service")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Privacy Policy
+                    {t("Privacy Policy")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Cookie Policy
+                    {t("Cookie Policy")}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#text.secondary",
+                      color: "text.secondary",
                     }}
                   >
-                    Accessibility
+                    {t("Accessibility")}
                   </Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
 
-          <Box sx={{display:"flex", justifyContent: "center", width:"100%"}}>
+          {/* Copyright */}
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
             <Typography
               sx={{
+                width: "100%",
                 fontSize: "14px",
                 lineHeight: "20px",
-                color: "#text.secondary",
-                px:"48px",
-                py:"24px",
-                borderTop: "1px solid #E2E8F0",
+                color: "text.secondary",
+                textAlign: "center",
+
+                px: "48px",
+                py: "24px",
+
+                borderTop: "1px solid",
+                borderColor: "divider",
               }}
             >
-              © 2026 KnowledgeShop. All rights reserved.
+              {t("Copyright")}
             </Typography>
           </Box>
         </Box>
