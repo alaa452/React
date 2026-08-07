@@ -47,7 +47,7 @@ export default function Home() {
                   justifyContent: "center",
                 }}
               >
-                New Season Arrivals
+                New Season Arrivals5
               </Typography>
               <Typography
                 variant="h1"
@@ -72,7 +72,7 @@ export default function Home() {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ fontSize: "18px", color: "#434655", lineHeight: "1.5" }}
+                sx={{ fontSize: "18px", color: "#text.secondary", lineHeight: "1.5" }}
               >
                 Discover our curated collection of premium products designed for
                 the modern lifestyle. Quality meets convenience at
@@ -164,7 +164,7 @@ export default function Home() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#434655",
+                        color: "#text.secondary",
                         fontWeight: "Regular",
                         height: "40px !important",
                         fontSize: "14px",
@@ -195,7 +195,7 @@ export default function Home() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#434655",
+                        color: "#text.secondary",
                         fontWeight: "Regular",
                         height: "40px !important",
                         fontSize: "14px",
@@ -226,7 +226,7 @@ export default function Home() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#434655",
+                        color: "#text.secondary",
                         fontWeight: "Regular",
                         height: "40px !important",
                         fontSize: "14px",
@@ -261,7 +261,7 @@ export default function Home() {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#434655",
+                        color: "#text.secondary",
                         fontWeight: "Regular",
                         height: "40px !important",
                         fontSize: "14px",
@@ -290,7 +290,7 @@ export default function Home() {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ color: "#434655", fontSize: "16px", lineHeight: "24px" }}
+                sx={{ color: "#text.secondary", fontSize: "16px", lineHeight: "24px" }}
               >
                 Find exactly what you're looking for
               </Typography>

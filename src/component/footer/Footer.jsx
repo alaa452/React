@@ -8,7 +8,7 @@ import hotmail from "../../image/hotmail.png";
 
 export default function Footer() {
   return (
-    <Box sx={{ backgroundColor: "#F5F5F5", mt: 10 }}>
+    <Box sx={{ backgroundColor: "background.default", mt: 10 }}>
       <Container
         maxWidth="xl"
         sx={{py:"32px"}}
@@ -34,7 +34,7 @@ export default function Footer() {
                 KnowledgeShop
               </Typography>
               <Typography
-                sx={{ color: "#434655", fontSize: "14px", lineHeight: "20px" }}
+                sx={{ color: "#text.secondary", fontSize: "14px", lineHeight: "20px" }}
               >
                 Elevating your everyday experience through carefully curated
                 premium products and exceptional service.
@@ -77,7 +77,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     All Products
@@ -86,7 +86,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Categories
@@ -95,7 +95,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Sale & Offers
@@ -104,7 +104,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     New Arrivals
@@ -135,7 +135,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Order Tracking
@@ -144,7 +144,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Shipping Policy
@@ -153,7 +153,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Easy Returns
@@ -162,7 +162,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Help Center
@@ -193,7 +193,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Terms of Service
@@ -202,7 +202,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Privacy Policy
@@ -211,7 +211,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Cookie Policy
@@ -220,7 +220,7 @@ export default function Footer() {
                     sx={{
                       fontSize: "16px",
                       lineHeight: "20px",
-                      color: "#434655",
+                      color: "#text.secondary",
                     }}
                   >
                     Accessibility
@@ -235,7 +235,7 @@ export default function Footer() {
               sx={{
                 fontSize: "14px",
                 lineHeight: "20px",
-                color: "#434655",
+                color: "#text.secondary",
                 px:"48px",
                 py:"24px",
                 borderTop: "1px solid #E2E8F0",

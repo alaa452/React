@@ -1,33 +1,55 @@
-import React from "react";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+
+import {
+  Box,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+
 import Navbar from "../component/navbar/Navbar";
 import Footer from "../component/footer/Footer";
 
-import { createBrowserRouter, Outlet } from "react-router";
-import { RouterProvider } from "react-router/dom";
-import { Box } from "@mui/material";
+function MainLayout() {
+  const [mode, setMode] = useState("light");
 
-export default function MainLayout() {
-  const userName = "Alaa";
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+
+  const handleTheme = () => {
+    if (mode === "light") {
+      setMode("dark");
+    } else {
+      setMode("light");
+    }
+  };
+
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <Navbar />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
 
       <Box
-        component="main"
         sx={{
-          flexGrow: 1,
+          minHeight: "100vh",
+          backgroundColor: "background.default",
+          color: "text.primary",
         }}
       >
-        <Outlet />
-      </Box>
+        <Navbar
+          mode={mode}
+          handleTheme={handleTheme}
+        />
 
-      <Footer />
-    </Box>
+        <Outlet />
+
+        <Footer />
+      </Box>
+    </ThemeProvider>
   );
 }
+
+export default MainLayout;

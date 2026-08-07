@@ -21,18 +21,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import LightModeIcon from "@mui/icons-material/LightMode";
 import LanguageIcon from "@mui/icons-material/Language";
-import homeImage from "../../image/homeImage.png";
 
+import homeImage from "../../image/homeImage.png";
+import { IconButton } from "@mui/material";
 import "./navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ mode, handleTheme }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [openMenu, setOpenMenu] = useState(false);
-
   const token = useAuthStore((state) => state.token);
   const logout = useAuthStore((state) => state.logout);
 
@@ -52,7 +52,7 @@ export default function Navbar() {
 
   const linkStyle = {
     textDecoration: "none",
-    color: "#434655",
+    color: "#text.secondary",
     fontSize: "14px",
     fontWeight: 500,
   };
@@ -138,7 +138,6 @@ export default function Navbar() {
                 >
                   {t("Logout")}
                 </Button>
-                
 
                 {/* <Link
                   to="/profile"
@@ -189,32 +188,40 @@ export default function Navbar() {
                 gap: 2,
               }}
             >
-              <DarkModeIcon
+              <IconButton
+                onClick={handleTheme}
                 sx={{
-                  color: "#434655",
-                  cursor: "pointer",
-                  transition: "color 0.3s ease",
+                  color: "#text.secondary",
+
                   "&:hover": {
                     color: "#004AC6",
+                    backgroundColor: "transparent",
                   },
                 }}
-              />
+              >
+                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+              </IconButton>
               <LanguageIcon
                 sx={{
-                  color: "#434655",
+                  color: "#text.secondary",
                   cursor: "pointer",
                   transition: "color 0.3s ease",
                   "&:hover": { color: "#004AC6" },
                 }}
               />
-              <AccountCircleIcon
-                sx={{
-                  color: "#434655",
-                  cursor: "pointer",
-                  transition: "color 0.3s ease",
-                  "&:hover": { color: "#004AC6" },
-                }}
-              />
+              <Link to="/profile">
+                <AccountCircleIcon
+                  sx={{
+                    color: "#text.secondary",
+                    cursor: "pointer",
+                    transition: "color 0.3s ease",
+
+                    "&:hover": {
+                      color: "#004AC6",
+                    },
+                  }}
+                />
+              </Link>
             </Box>
           </Box>
 
@@ -272,20 +279,20 @@ export default function Navbar() {
                 {t("Cart")} ({cartCount})
               </Link>
 
-              <Link
+              {/* <Link
                 to="/profile"
                 style={linkStyle}
                 onClick={() => setOpenMenu(false)}
               >
                 {t("Profile")}
-              </Link>
+              </Link> */}
 
               <Button
                 onClick={handleLogout}
                 sx={{
                   justifyContent: "flex-start",
                   padding: 0,
-                  color: "#434655",
+                  color: "#text.secondary",
                 }}
               >
                 {t("Logout")}

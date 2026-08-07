@@ -208,7 +208,7 @@ depending on the format of the data coming from the API.
                 md: "40px",
               },
               letterSpacing: "0.64px",
-              color: "#202124",
+              color: "#text.primary",
             }}
           >
             {t("Products")}
@@ -217,7 +217,7 @@ depending on the format of the data coming from the API.
           <Typography
             variant="body1"
             sx={{
-              color: "#434655",
+              color: "#text.secondary",
               fontSize: "16px",
               lineHeight: "24px",
             }}
@@ -249,7 +249,7 @@ depending on the format of the data coming from the API.
         >
           <Typography
             sx={{
-              color: "#202124",
+              color: "#text.primary",
               fontSize: "18px",
               fontWeight: 700,
             }}
@@ -259,7 +259,7 @@ depending on the format of the data coming from the API.
 
           <Typography
             sx={{
-              color: "#434655",
+              color: "#text.secondary",
               fontSize: "14px",
             }}
           >
@@ -317,7 +317,7 @@ depending on the format of the data coming from the API.
                         md: "240px",
                       },
                       overflow: "hidden",
-                      backgroundColor: "#FFFFFF",
+                      backgroundColor: "#background.paper",
 
                       display: "flex",
                       alignItems: "center",
@@ -361,7 +361,7 @@ depending on the format of the data coming from the API.
                         fontSize: "17px",
                         fontWeight: 700,
                         lineHeight: 1.4,
-                        color: "#202124",
+                        color: "#text.primary",
 
                         display: "-webkit-box",
                         WebkitBoxOrient: "vertical",

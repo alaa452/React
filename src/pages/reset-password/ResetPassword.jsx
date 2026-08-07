@@ -110,7 +110,7 @@ function ResetPassword() {
           xs: "40px",
           md: "70px",
         },
-        backgroundColor: "#F7F9FC",
+        backgroundColor: "#background.default",
         display: "flex",
         alignItems: "center",
       }}
