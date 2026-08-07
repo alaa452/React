@@ -22,14 +22,12 @@ import Categories from "../../component/categories/Categories";
 import Products from "../../component/products/Products";
 
 function Shop() {
-  // the value which the user choose it
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [order, setOrder] = useState("asc");
 
-  // the filter will actullay applay on products
   const [appliedFilters, setAppliedFilters] = useState({
     selectedCategory: null,
     minPrice: "",
@@ -46,7 +44,6 @@ function Shop() {
     maxPriceNumber !== null &&
     maxPriceNumber < minPriceNumber;
 
-  // تطبيق الفلاتر
   const handleApplyFilters = () => {
     if (isPriceRangeInvalid) {
       return;
@@ -61,7 +58,6 @@ function Shop() {
     });
   };
 
-  // delete all products
   const handleClearFilters = () => {
     setSelectedCategory(null);
     setMinPrice("");
@@ -87,13 +83,12 @@ function Shop() {
       }}
     >
       <Container maxWidth="xl">
-        {/* Breadcrumb */}
         <Breadcrumbs
           separator={
             <NavigateNextIcon
               sx={{
                 fontSize: "16px",
-                color: "#434655",
+                color: "#text.secondary",
               }}
             />
           }
@@ -111,7 +106,7 @@ function Shop() {
             to="/"
             underline="none"
             sx={{
-              color: "#434655",
+              color: "#text.secondary",
               fontSize: "14px",
 
               "&:hover": {
@@ -124,7 +119,7 @@ function Shop() {
 
           <Typography
             sx={{
-              color: "#202124",
+              color: "#text.primary",
               fontSize: "14px",
               fontWeight: 700,
             }}
@@ -133,7 +128,6 @@ function Shop() {
           </Typography>
         </Breadcrumbs>
 
-        {/* filters and porducts*/}
         <Box
           sx={{
             display: "flex",
@@ -146,7 +140,6 @@ function Shop() {
             },
           }}
         >
-          {/* صندوق الفلاتر */}
           <Box
             component="aside"
             sx={{
@@ -161,10 +154,9 @@ function Shop() {
               border: "1px solid #E2E8F0",
               borderRadius: "12px",
               padding: "24px",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "background.paper",
             }}
           >
-            {/* subject filter*/}
             <Box
               sx={{
                 display: "flex",
@@ -178,7 +170,7 @@ function Shop() {
                   fontSize: "16px",
                   fontWeight: 700,
                   lineHeight: "20px",
-                  color: "#202124",
+                  color: "#text.primary",
                 }}
               >
                 Filters
@@ -205,7 +197,7 @@ function Shop() {
               </Button>
             </Box>
 
-            {/* price */}
+   
             <Box
               sx={{
                 display: "grid",
@@ -295,7 +287,7 @@ function Shop() {
               />
             </Box>
 
-            {/* sort by*/}
+
             <FormControl
               fullWidth
               size="small"
@@ -365,12 +357,12 @@ function Shop() {
               </Select>
             </FormControl>
 
-            {/* categories */}
+
             <Box>
               <Typography
                 sx={{
                   mb: "12px",
-                  color: "#434655",
+                  color: "#text.secondary",
                   fontSize: "14px",
                   lineHeight: "16px",
                   fontWeight: 500,
@@ -386,7 +378,6 @@ function Shop() {
               />
             </Box>
 
-            {/* apply filters*/}
             <Button
               type="button"
               variant="contained"
@@ -408,7 +399,7 @@ function Shop() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#B8C8DF",
-                  color: "#FFFFFF",
+                  color: "#background.paper",
                 },
               }}
             >
@@ -416,7 +407,6 @@ function Shop() {
             </Button>
           </Box>
 
-          {/* products part*/}
           <Box
             component="main"
             sx={{
@@ -427,7 +417,7 @@ function Shop() {
               gap: "32px",
             }}
           >
-            {/* Page title*/}
+
             <Box
               sx={{
                 display: "flex",
@@ -447,7 +437,7 @@ function Shop() {
                     md: "40px",
                   },
                   fontWeight: 700,
-                  color: "#202124",
+                  color: "#text.primary",
                 }}
               >
                 Explore Our Exclusive Products
@@ -455,7 +445,7 @@ function Shop() {
 
               <Typography
                 sx={{
-                  color: "#434655",
+                  color: "#text.secondary",
                   fontSize: "16px",
                   lineHeight: "24px",
                 }}
@@ -464,7 +454,7 @@ function Shop() {
               </Typography>
             </Box>
 
-            {/* products */}
+
             <Products
               showHeader={false}
               initialLimit={2}

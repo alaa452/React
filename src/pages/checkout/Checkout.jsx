@@ -28,7 +28,7 @@ function Checkout() {
 
   const { mutate: checkoutMutate, isPending } = useCheckout();
 
-  // تحميل السلة
+
   if (isLoading) {
     return (
       <Box
@@ -44,7 +44,7 @@ function Checkout() {
     );
   }
 
-  // إذا حدث خطأ
+ 
   if (isError) {
     return (
       <Typography
@@ -102,7 +102,7 @@ function Checkout() {
       }}
     >
       <Container maxWidth="lg">
-        {/* عنوان الصفحة */}
+
         <Box
           sx={{
             mb: "32px",
@@ -116,7 +116,7 @@ function Checkout() {
                 md: "34px",
               },
               fontWeight: 700,
-              color: "#202124",
+              color: "text.primary",
             }}
           >
             Checkout
@@ -125,7 +125,7 @@ function Checkout() {
           <Typography
             sx={{
               mt: "8px",
-              color: "#434655",
+              color: "text.secondary",
               fontSize: "15px",
             }}
           >
@@ -133,7 +133,6 @@ function Checkout() {
           </Typography>
         </Box>
 
-        {/* محتوى الصفحة */}
         <Box
           sx={{
             display: "flex",
@@ -145,7 +144,7 @@ function Checkout() {
             gap: "32px",
           }}
         >
-          {/* المنتجات */}
+  
           <Box
             sx={{
               flexGrow: 1,
@@ -153,7 +152,7 @@ function Checkout() {
               border: "1px solid #E2E8F0",
               borderRadius: "12px",
               overflow: "hidden",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "background.paper",
             }}
           >
             <Typography
@@ -173,7 +172,7 @@ function Checkout() {
                 <TableHead>
                   <TableRow
                     sx={{
-                      backgroundColor: "#F8FAFC",
+                      backgroundColor: "background.paper",
                     }}
                   >
                     <TableCell>
@@ -218,7 +217,7 @@ function Checkout() {
             </TableContainer>
           </Box>
 
-          {/* الدفع */}
+
           <Box
             sx={{
               width: {
@@ -231,7 +230,7 @@ function Checkout() {
 
               border: "1px solid #E2E8F0",
               borderRadius: "12px",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "background.paper",
 
               display: "flex",
               flexDirection: "column",
@@ -243,7 +242,7 @@ function Checkout() {
               sx={{
                 fontSize: "18px",
                 fontWeight: 700,
-                color: "#202124",
+                color: "text.primary",
               }}
             >
               Payment Method
@@ -251,14 +250,13 @@ function Checkout() {
 
             <Typography
               sx={{
-                color: "#434655",
+                color: "text.secondary",
                 fontSize: "14px",
               }}
             >
               Choose how you would like to pay.
             </Typography>
 
-            {/* اختيار طريقة الدفع */}
             <FormControl fullWidth>
               <InputLabel id="payment-method-label">Payment Method</InputLabel>
 
@@ -283,7 +281,7 @@ function Checkout() {
               </Select>
             </FormControl>
 
-            {/* زر الدفع */}
+
             <Button
               type="button"
               variant="contained"
@@ -309,7 +307,7 @@ function Checkout() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#AFC4E8",
-                  color: "#FFFFFF",
+                  color: "background.paper",
                 },
               }}
             >
@@ -317,7 +315,7 @@ function Checkout() {
                 <CircularProgress
                   size={22}
                   sx={{
-                    color: "#FFFFFF",
+                    color: "background.paper",
                   }}
                 />
               ) : (

@@ -52,7 +52,7 @@ export default function Navbar({ mode, handleTheme }) {
 
   const linkStyle = {
     textDecoration: "none",
-    color: "#text.secondary",
+    color: "text.secondary",
     fontSize: "14px",
     fontWeight: 500,
   };
@@ -191,7 +191,7 @@ export default function Navbar({ mode, handleTheme }) {
               <IconButton
                 onClick={handleTheme}
                 sx={{
-                  color: "#text.secondary",
+                  color: "text.secondary",
 
                   "&:hover": {
                     color: "#004AC6",
@@ -203,7 +203,7 @@ export default function Navbar({ mode, handleTheme }) {
               </IconButton>
               <LanguageIcon
                 sx={{
-                  color: "#text.secondary",
+                  color: "text.secondary",
                   cursor: "pointer",
                   transition: "color 0.3s ease",
                   "&:hover": { color: "#004AC6" },
@@ -212,7 +212,7 @@ export default function Navbar({ mode, handleTheme }) {
               <Link to="/profile">
                 <AccountCircleIcon
                   sx={{
-                    color: "#text.secondary",
+                    color: "text.secondary",
                     cursor: "pointer",
                     transition: "color 0.3s ease",
 
@@ -292,7 +292,7 @@ export default function Navbar({ mode, handleTheme }) {
                 sx={{
                   justifyContent: "flex-start",
                   padding: 0,
-                  color: "#text.secondary",
+                  color: "text.secondary",
                 }}
               >
                 {t("Logout")}

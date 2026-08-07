@@ -100,7 +100,7 @@ export default function Register() {
               sm: "40px",
             },
 
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "background.paper",
             border: "1px solid #E2E8F0",
             borderRadius: "16px",
             boxShadow: "0 12px 35px rgba(0, 0, 0, 0.08)",
@@ -115,7 +115,7 @@ export default function Register() {
             <Typography
               component="h1"
               sx={{
-                color: "#202124",
+                color: "text.primary",
                 fontSize: {
                   xs: "28px",
                   sm: "32px",
@@ -130,7 +130,7 @@ export default function Register() {
             <Typography
               sx={{
                 mt: "8px",
-                color: "#434655",
+                color: "text.secondary",
                 fontSize: "15px",
                 lineHeight: "22px",
               }}
@@ -243,7 +243,7 @@ export default function Register() {
                 height: "50px",
                 borderRadius: "8px",
                 backgroundColor: "#004AC6",
-                color: "#FFFFFF",
+                color: "background.paper",
                 textTransform: "none",
                 fontSize: "16px",
                 fontWeight: 600,
@@ -256,7 +256,7 @@ export default function Register() {
 
                 "&.Mui-disabled": {
                   backgroundColor: "#AFC4E8",
-                  color: "#FFFFFF",
+                  color: "background.paper",
                 },
               }}
             >
@@ -264,7 +264,7 @@ export default function Register() {
                 <CircularProgress
                   size={23}
                   sx={{
-                    color: "#FFFFFF",
+                    color: "background.paper",
                   }}
                 />
               ) : (
@@ -276,7 +276,7 @@ export default function Register() {
           <Typography
             sx={{
               mt: "28px",
-              color: "#434655",
+              color: "text.secondary",
               fontSize: "14px",
               textAlign: "center",
             }}

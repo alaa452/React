@@ -145,7 +145,7 @@ one image will be displayed.
             to="/"
             underline="none"
             sx={{
-              color: "#434655",
+              color: "text.secondary",
 
               "&:hover": {
                 color: "#004AC6",
@@ -160,7 +160,7 @@ one image will be displayed.
             to="/shop"
             underline="none"
             sx={{
-              color: "#434655",
+              color: "text.secondary",
 
               "&:hover": {
                 color: "#004AC6",
@@ -172,7 +172,7 @@ one image will be displayed.
 
           <Typography
             sx={{
-              color: "#202124",
+              color: "text.primary",
               fontSize: "13px",
               fontWeight: 600,
             }}
@@ -220,7 +220,7 @@ one image will be displayed.
                         flexShrink: 0,
                         padding: "4px",
 
-                        backgroundColor: "#FFFFFF",
+                        backgroundColor: "background.paper",
                         border:
                           mainImage === image
                             ? "2px solid #004AC6"
@@ -278,7 +278,7 @@ one image will be displayed.
                     }}
                   />
                 ) : (
-                  <Typography sx={{ color: "#434655" }}>
+                  <Typography sx={{ color: "text.secondary" }}>
                     No image available
                   </Typography>
                 )}
@@ -319,7 +319,7 @@ one image will be displayed.
               <Typography
                 component="h1"
                 sx={{
-                  color: "#202124",
+                  color: "text.primary",
                   fontSize: {
                     xs: "28px",
                     md: "34px",
@@ -350,7 +350,7 @@ one image will be displayed.
 
                 <Typography
                   sx={{
-                    color: "#434655",
+                    color: "text.secondary",
                     fontSize: "13px",
                   }}
                 >
@@ -390,7 +390,7 @@ one image will be displayed.
               >
                 <Typography
                   sx={{
-                    color: "#202124",
+                    color: "text.primary",
                     fontSize: "14px",
                     fontWeight: 500,
                   }}
@@ -457,7 +457,7 @@ one image will be displayed.
                     isAddingToCart ? (
                       <CircularProgress
                         size={18}
-                        sx={{ color: "#FFFFFF" }}
+                        sx={{ color: "background.paper" }}
                       />
                     ) : (
                       <AddShoppingCartOutlined />
@@ -489,7 +489,7 @@ one image will be displayed.
                     flexShrink: 0,
                     border: "1px solid #E2E8F0",
                     borderRadius: "8px",
-                    color: "#434655",
+                    color: "text.secondary",
 
                     "&:hover": {
                       color: "#004AC6",
@@ -636,7 +636,7 @@ one image will be displayed.
 
               "& .MuiTab-root": {
                 textTransform: "none",
-                color: "#434655",
+                color: "text.secondary",
                 fontSize: "14px",
                 minWidth: "auto",
                 px: "16px",
@@ -701,7 +701,7 @@ one image will be displayed.
                     xs: "1fr",
                     sm: "180px 1fr",
                   },
-                  border: "1px solid #E2E8F0",
+                  border: "1px solid #background.default",
                   borderRadius: "10px",
                   overflow: "hidden",
                 }}
@@ -710,7 +710,7 @@ one image will be displayed.
                   sx={{
                     p: "14px",
                     fontWeight: 600,
-                    backgroundColor: "#F8FAFC",
+                    backgroundColor: "#background.default",
                   }}
                 >
                   Product Name
@@ -724,7 +724,7 @@ one image will be displayed.
                   sx={{
                     p: "14px",
                     fontWeight: 600,
-                    backgroundColor: "#F8FAFC",
+                    backgroundColor: "background.default",
                   }}
                 >
                   Price
@@ -738,7 +738,7 @@ one image will be displayed.
                   sx={{
                     p: "14px",
                     fontWeight: 600,
-                    backgroundColor: "#F8FAFC",
+                    backgroundColor: "#background.default",
                   }}
                 >
                   Category
@@ -782,7 +782,7 @@ one image will be displayed.
 
                   <Typography
                     sx={{
-                      color: "#434655",
+                      color: "text.secondary",
                       fontSize: "14px",
                     }}
                   >
@@ -808,7 +808,7 @@ one image will be displayed.
                       {"★".repeat(review.rating || 5)}
                     </Typography>
 
-                    <Typography sx={{ mt: 1, color: "#434655" }}>
+                    <Typography sx={{ mt: 1, color: "text.secondary" }}>
                       {review.comment}
                     </Typography>
                   </Box>

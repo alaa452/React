@@ -131,7 +131,7 @@ export default function Cart() {
                 md: "34px",
               },
               fontWeight: 700,
-              color: "#202124",
+              color: "text.primary",
             }}
           >
             Shopping Cart
@@ -140,7 +140,7 @@ export default function Cart() {
           <Typography
             sx={{
               mt: "8px",
-              color: "#434655",
+              color: "text.secondary",
               fontSize: "15px",
             }}
           >
@@ -190,7 +190,7 @@ export default function Cart() {
               sx={{
                 fontSize: "24px",
                 fontWeight: 700,
-                color: "#202124",
+                color: "text.primary",
               }}
             >
               Your cart is empty
@@ -199,7 +199,7 @@ export default function Cart() {
             <Typography
               sx={{
                 maxWidth: "420px",
-                color: "#434655",
+                color: "text.secondary",
                 fontSize: "15px",
                 lineHeight: "23px",
               }}
@@ -279,7 +279,7 @@ export default function Cart() {
 
                     border: "1px solid #E2E8F0",
                     borderRadius: "14px",
-                    backgroundColor: "#FFFFFF",
+                    backgroundColor: "background.paper",
                     boxShadow: "0 4px 14px rgba(0, 0, 0, 0.04)",
                   }}
                 >
@@ -293,7 +293,7 @@ export default function Cart() {
                       sx={{
                         fontSize: "17px",
                         fontWeight: 700,
-                        color: "#202124",
+                        color: "text.primary",
                       }}
                     >
                       {item.productName}
@@ -388,7 +388,7 @@ export default function Cart() {
                   >
                     <Typography
                       sx={{
-                        color: "#434655",
+                        color: "text.secondary",
                         fontSize: "13px",
                       }}
                     >
@@ -398,7 +398,7 @@ export default function Cart() {
                     <Typography
                       sx={{
                         mt: "4px",
-                        color: "#202124",
+                        color: "text.primary",
                         fontSize: "18px",
                         fontWeight: 700,
                       }}
@@ -468,7 +468,7 @@ export default function Cart() {
 
                 border: "1px solid #E2E8F0",
                 borderRadius: "14px",
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "background.paper",
 
                 boxShadow: "0 4px 14px rgba(0, 0, 0, 0.04)",
 
@@ -486,7 +486,7 @@ export default function Cart() {
                 sx={{
                   fontSize: "20px",
                   fontWeight: 700,
-                  color: "#202124",
+                  color: "text.primary",
                 }}
               >
                 Order Summary
@@ -508,7 +508,7 @@ export default function Cart() {
                     gap: "16px",
                   }}
                 >
-                  <Typography sx={{ color: "#434655" }}>
+                  <Typography sx={{ color: "text.secondary" }}>
                     Products
                   </Typography>
 
@@ -524,7 +524,7 @@ export default function Cart() {
                     gap: "16px",
                   }}
                 >
-                  <Typography sx={{ color: "#434655" }}>
+                  <Typography sx={{ color: "text.secondary" }}>
                     Subtotal
                   </Typography>
 
