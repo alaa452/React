@@ -21,6 +21,9 @@ import returnIcon from "../../image/returnIcon.png";
 import supportCustomerIcon from "../../image/supportCustomerIcon.png";
 
 export default function Home() {
+  //here the useTranslation hook is used to get the translation function t from the i18next library. This function is then used to translate the text content of the page based on the user's selected language.
+  //useTranslation It returns an object containing translation-related things. like the t function, which is used to translate text, and other properties related to the current language and translation state.
+  //remember t is a function 
   const { t } = useTranslation();
 
   return (
@@ -187,7 +190,7 @@ export default function Home() {
           {/* Features */}
 
           <Box sx={{ marginTop: "32px" }}>
-            <Grid container spacing={15}>
+            <Grid container spacing={10}>
               <Grid item xs={12} sm={6} md={3}>
                 <Box
                   sx={{
