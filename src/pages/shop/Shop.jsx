@@ -25,6 +25,7 @@ import Products from "../../component/products/Products";
 function Shop() {
   const { t } = useTranslation();
 
+  //useState it lets a component remember a value, and when that value changes, React updates the screen.
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");

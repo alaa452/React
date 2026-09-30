@@ -43,9 +43,16 @@ export default function Products({
   }, [selectedCategory, minPrice, maxPrice, sortBy, order, initialLimit]);
 
   // All products coming from API
-  const products = data?.response?.data ?? [];
+    const products = useMemo(
+      // ?. The optional chaining operator (?.) allows you to access the value of a property located deep within a chain of connected objects without having to explicitly validate that each reference in the chain is valid.
+      // ?? The nullish coalescing operator (??) is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
+      () => data?.response?.data ?? [],
+      [data?.response?.data]
+    );
 
   // Filter and sort products
+  //useMemo is a React hook that allows you to optimize the performance of your components by memoizing the result of a function 
+  // and only recomputing it when its dependencies change.
   const filteredProducts = useMemo(() => {
     const minimumPrice = minPrice === "" ? null : Number(minPrice);
 
